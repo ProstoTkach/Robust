@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="globals.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+    * {
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Inter', Helvetica, sans-serif;
+    }
+
+    /* a blue color as a generic focus style */
+    button:focus-visible {
+      outline: 2px solid #4a90e2 !important;
+      outline: -webkit-focus-ring-color auto 5px !important;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .screen {
+      background-color: #e8f1fe;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .screen .div {
+      background-color: #e8f1fe;
+      width: 100%;
+      max-width: 1440px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screen .group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px 0;
+      position: relative;
+    }
+
+    .screen .text-wrapper {
+      font-family: "Inter-Bold", Helvetica;
+      font-weight: 700;
+      color: #011844;
+      font-size: clamp(28px, 5vw, 35px);
+      letter-spacing: 0;
+      line-height: normal;
+      margin-left: 15px;
+    }
+
+    .screen .vector {
+      width: 53px;
+      height: 37px;
+    }
+
+    .screen .overlap {
+      width: 100%;
+      max-width: 626px;
+      padding: 30px 20px;
+      margin: 20px 0;
+      background-color: #ffffff;
+      z-index: 2;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .screen .text-wrapper-2 {
+      font-family: "Roboto Slab-SemiBold", Helvetica;
+      font-weight: 600;
+      color: #011844;
+      font-size: clamp(28px, 5vw, 40px);
+      text-align: center;
+      line-height: 1.1;
+      margin: 0 auto 30px;
+      display: block;
+      letter-spacing: 0;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 243px;
+      height: 52px;
+      background-color: #e8f1fe;
+      border-radius: 10px;
+      position: relative;
+      padding: 0 20px;
+      font-family: "Inter-Medium", Helvetica;
+      font-weight: 500;
+      color: #576a8f;
+      font-size: 15px;
+      letter-spacing: 0;
+      border: none;
+      cursor: pointer;
+    }
+
+    .social-button img {
+      margin-right: 10px;
+    }
+
+    .register-button {
+      width: 100%;
+      max-width: 243px;
+      height: 70px;
+      background-color: #ff8b00;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px auto;
+      font-family: "Inter-Bold", Helvetica;
+      font-weight: 700;
+      color: #011844;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+    }
+    .register-button:hover {
+      background-color: #ffc072;
+      }
+    .input-group {
+      width: 100%;
+      max-width: 499px;
+      height: 70px;
+      margin: 15px auto;
+      position: relative;
+    }
+
+    .input-field {
+      width: 100%;
+      height: 100%;
+      background-color: #e8f1fe;
+      border-radius: 10px;
+      border: none;
+      padding: 0 32px;
+      font-family: "Inter-Regular", Helvetica;
+      font-weight: 400;
+      color: #576a8f;
+      font-size: 20px;
+    }
+
+    .input-field::placeholder {
+      color: #576a8f;
+    }
+
+    .select-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .select-wrapper select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 70px;
+      background-color: #e8f1fe;
+      border-radius: 10px;
+      border: none;
+      padding: 0 32px;
+      font-family: "Inter-Regular", Helvetica;
+      font-weight: 400;
+      color: #576a8f;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .checkbox-container {
+      display: flex;
+      margin: 20px 0;
+      color: #576a8f;
+      font-size: 18px;
+      font-family: "Inter-Regular", Helvetica;
+      margin: auto 0;
+    }
+
+    .custom-checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1.5px solid #0e68a6;
+      margin-right: 10px;
+    }
+
+    .custom-checkbox.checked {
+      background-color: #0e68a6;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+      color: #000000;
+      font-size: 20px;
+      font-family: "Inter-Medium", Helvetica;
+      max-width: 499px;
+      margin: 20px auto 10px auto;
+    }
+
+    .divider-line {
+      flex-grow: 1;
+      height: 1px;
+      background-color: #000;
+      margin: 0 10px;
+    }
+
+    .decoration-images {
+      display: none;
+      /* Скрываем декоративные изображения на мобильных */
+    }
+
+    @media (min-width: 768px) {
+      .social-buttons {
+        flex-wrap: nowrap;
+      }
+
+      .decoration-images {
+        display: block;
+        position: absolute;
+      }
+
+      .element {
+        width: 209px;
+        height: 131px;
+        top: 288px;
+        left: 5%;
+      }
+
+      .element-e-d-f {
+        width: 142px;
+        height: 208px;
+        top: 639px;
+        right: 5%;
+      }
+
+      .subtract {
+        width: 159px;
+        height: 277px;
+        top: 216px;
+        right: 5%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .input-field {
+        font-size: 16px;
+        padding: 0 20px;
+      }
+
+      .input-field option,
+      .select-wrapper select {
+        font-size: 16px;
+        padding: 0 20px;
+      }
+
+      .register-button {
+        height: 60px;
+        font-size: 18px;
+      }
+
+      .social-button {
+        height: 45px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="screen">
+    <div class="div">
+      <div class="group">
+        <img class="vector" src="img/vector-1.svg" />
+        <div class="text-wrapper">ROBUST</div>
+      </div>
+      <div class="overlap">
+        <form id="registrationForm" novalidate>
+          <div class="text-wrapper-2">Реєстрація</div>
+
+          <div class="input-group">
+            <input type="text" class="input-field" id="nameInput" placeholder="Імʼя*" required />
+            <span id="nameError" class="error-message">Будь ласка, введіть ваше ім'я</span>
+          </div>
+
+          <div class="input-group">
+            <input type="email" id="emailInput" class="input-field" placeholder="Email*" required />
+            <span id="emailError" class="error-message">Будь ласка, введіть коректний email</span>
+          </div>
+
+          <div class="input-group select-wrapper">
+            <select class="input-field" id="activitySelect" required>
+              <option value="" disabled selected hidden>Сфера діяльності*</option>
+              <option value="it">IT та програмування</option>
+              <option value="design">Дизайн</option>
+              <option value="marketing">Маркетинг</option>
+              <option value="education">Освіта</option>
+              <option value="finance">Фінанси</option>
+              <option value="health">Медицина</option>
+              <option value="other">Інше</option>
+            </select>
+            <span id="selectError" class="error-message">Будь ласка, оберіть сферу діяльності</span>
+            <div class="select-arrow">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="5" fill="white" />
+                <path
+                  d="M15.7705 20.2218L10.5787 14.6839C9.97995 14.0453 10.4328 13 11.3082 13H21.6918C22.5672 13 23.0201 14.0453 22.4213 14.6839L17.2295 20.2218C16.8345 20.6432 16.1655 20.6432 15.7705 20.2218Z"
+                  fill="#0E68A6" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="passwordInput" class="input-field" placeholder="Пароль*" required
+              minlength="6" />
+            <span id="passwordError" class="error-message">Пароль має містити мінімум 6 символів</span>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="confirmPasswordInput" class="input-field" placeholder="Повторити пароль*"
+              required />
+            <span id="confirmPasswordError" class="error-message">Паролі не співпадають</span>
+          </div>
+
+          <div style="display: flex; max-width: 499px; margin: auto;">
+            <div class="checkbox-container">
+              <input type="checkbox" id="termsCheckbox" class="custom-checkbox" required />
+              <span>Згоден з умовами та політикою конфіденційності</span>
+              <span id="checkboxError" class="error-message">Це поле обов'язкове</span>
+            </div>
+
+            <button type="submit" class="register-button">Зареєструватися</button>
+          </div>
+        </form>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span>або</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <div class="social-buttons">
+          <button class="social-button">
+            <img src="img/group-1842.png" />
+            <span>Увійти через Google</span>
+          </button>
+          <button class="social-button">
+            <img src="img/f-1.svg" />
+            <span>Увійти через Facebook</span>
+          </button>
+        </div>
+      </div>
+
+      <img class="element decoration-images" src="img/hat.png" />
+      <img class="element-e-d-f decoration-images" src="img/book.png" />
+      <img class="subtract decoration-images" src="img/subtract.png" />
+    </div>
+  </div>
+
+  <style>
+    .error-message {
+      color: red;
+      font-size: 12px;
+      display: none;
+      margin-top: 2px;
+      margin-left: 15px;
+    }
+
+    .input-field:invalid {
+      border-color: red;
+    }
+
+    .checkbox-container {
+      position: relative;
+    }
+
+    #checkboxError {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      white-space: nowrap;
+    }
+  </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('registrationForm');
+    const registerButton = document.querySelector('.register-button');
+
+    registerButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      let isValid = true;
+
+      const nameInput = document.getElementById('nameInput');
+      if (!nameInput.value.trim()) {
+        document.getElementById('nameError').style.display = 'block';
+        nameInput.classList.add('invalid');
+        isValid = false;
+      } else {
+        document.getElementById('nameError').style.display = 'none';
+        nameInput.classList.remove('invalid');
+      }
+
+      const emailInput = document.getElementById('emailInput');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value)) {
+        document.getElementById('emailError').style.display = 'block';
+        emailInput.classList.add('invalid');
+        isValid = false;
+      } else {
+        document.getElementById('emailError').style.display = 'none';
+        emailInput.classList.remove('invalid');
+      }
+
+      const activitySelect = document.getElementById('activitySelect');
+      if (!activitySelect.value) {
+        document.getElementById('selectError').style.display = 'block';
+        activitySelect.classList.add('invalid');
+        isValid = false;
+      } else {
+        document.getElementById('selectError').style.display = 'none';
+        activitySelect.classList.remove('invalid');
+      }
+
+      const passwordInput = document.getElementById('passwordInput');
+      if (passwordInput.value.length < 6) {
+        document.getElementById('passwordError').textContent = 'Пароль має містити мінімум 6 символів';
+        document.getElementById('passwordError').style.display = 'block';
+        passwordInput.classList.add('invalid');
+        isValid = false;
+      } else {
+        document.getElementById('passwordError').style.display = 'none';
+        passwordInput.classList.remove('invalid');
+      }
+
+      const confirmPasswordInput = document.getElementById('confirmPasswordInput');
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        confirmPasswordInput.classList.add('invalid');
+        isValid = false;
+      } else {
+        document.getElementById('confirmPasswordError').style.display = 'none';
+        confirmPasswordInput.classList.remove('invalid');
+      }
+
+      const termsCheckbox = document.getElementById('termsCheckbox');
+      if (!termsCheckbox.checked) {
+        document.getElementById('checkboxError').style.display = 'block';
+        isValid = false;
+      } else {
+        document.getElementById('checkboxError').style.display = 'none';
+      }
+
+      if (isValid) {
+        window.location.href = "main.html";
+      }
+    });
+  });
+</script>
+</body>
+
+</html>

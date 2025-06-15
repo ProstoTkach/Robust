@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+  
+      html,
+      body {
+        margin: 0px;
+        height: 100vh;
+  
+      }
+  
+      /* a blue color as a generic focus style */
+      button:focus-visible {
+        outline: 2px solid #4a90e2 !important;
+        outline: -webkit-focus-ring-color auto 5px !important;
+      }
+  
+      a {
+        text-decoration: none;
+      }
+  
+      .element {
+        background-color: #e8f1fe;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 5vw;
+        height: 100vh;
+      }
+  
+      .element .div {
+        background-color: #e8f1fe;
+        width: 100%;
+        max-width: 1440px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+      }
+  
+      .element .robust {
+        width: 100%;
+        max-width: 1162px;
+        font-family: "Roboto Slab-SemiBold", Helvetica;
+        font-weight: 600;
+        color: transparent;
+        font-size: clamp(28px, 5vw, 55px);
+        text-align: center;
+        letter-spacing: 0;
+        line-height: 1.1;
+      }
+  
+      .element .text-wrapper {
+        color: #011844;
+      }
+  
+      .element .span {
+        color: #0e68a6;
+      }
+  
+      .element .group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 80px;
+        position: relative;
+        width: auto;
+      }
+  
+      .element .text-wrapper-2 {
+        font-family: "Inter-Bold", Helvetica;
+        font-weight: 700;
+        color: #011844;
+        font-size: clamp(24px, 3vw, 35px);
+        letter-spacing: 0;
+        margin-left: 60px;
+      }
+  
+      .element .vector {
+        position: absolute;
+        width: 53px;
+        height: 37px;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+  
+      .element .english-books-stacks {
+        width: 100%;
+        height: 325px;
+        object-fit: cover;
+        object-position: center;
+        margin: 40px 0 0 0;
+        overflow: hidden;
+        display: block;
+        border-radius: 20px;
+      }
+  
+      .element .p {
+        width: 100%;
+        max-width: 990px;
+        margin: 30px auto 0 auto;
+        font-family: "Roboto Slab-Regular", Helvetica;
+        font-weight: 400;
+        font-size: clamp(16px, 2.5vw, 30px);
+        line-height: 1.2;
+        color: #011844;
+        text-align: center;
+        letter-spacing: 0;
+      }
+  
+      .element .overlap {
+        width: 100%;
+        max-width: 348px;
+        margin: 40px auto 0 auto;
+        position: relative;
+      }
+  
+      .element .overlap-group-wrapper {
+        width: 100%;
+      }
+  
+      .element .overlap-group {
+        width: 100%;
+        height: 75px;
+        background-color: #ff8b00;
+        border-radius: 14.62px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+  
+      .element .text-wrapper-3 {
+        font-family: "Inter-SemiBold", Helvetica;
+        font-weight: 600;
+        font-size: clamp(18px, 2vw, 29.2px);
+        color: #011844;
+        text-align: center;
+        letter-spacing: 0;
+      }
+  
+      .element .img {
+        position: absolute;
+        width: 31px;
+        height: 22px;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+  
+      @media (max-width: 480px) {
+        .element .group {
+          margin-bottom: 20px;
+        }
+  
+        .element .robust {
+          margin: 20px 0 0 0;
+        }
+  
+        .element .text-wrapper-2 {
+          margin-left: 75px;
+          font-size: 30px;
+        }
+  
+        .element .vector {
+          width: 60px;
+          height: 42px;
+        }
+  
+        .element .overlap-group {
+          height: 60px;
+        }
+  
+        .element .p {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="element">
+      <div class="div">
+        <div class="group">
+          <img class="vector" src="img/vector-1.svg" />
+          <div class="text-wrapper-2">ROBUST</div>
+        </div>
+        <p class="robust">
+          <span class="text-wrapper">Навіть коротка пауза — шанс вивчити </span>
+          <span class="span">нове слово або структуру</span>
+        </p>
+        <img class="english-books-stacks" src="img/english-books-stacks-table-working-space-2.jpg" />
+        
+        <div class="overlap">
+          <a href="3.html" class="overlap-group-wrapper">
+            <div class="overlap-group">
+              <div class="text-wrapper-3">Далі</div>
+              <img class="img" src="img/arrow-right.svg" />
+            </div>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

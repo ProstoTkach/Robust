@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+  <style>
+    * {
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+    }a{
+      text-decoration: none;
+    }
+    .container {
+      display: flex;
+      min-height: 100vh;
+      background-color: #e8f1fe;
+    }/* Сайдбар */
+    .sidebar {
+      width: 100%;
+      max-width: 383px;
+      background-color: #011844;
+      color: white;
+      padding: 40px;
+      position: relative;
+    }.logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }.logo-text {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-left: 15px;
+    }.profile {
+      margin-bottom: 40px;
+    }.profile-img {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 20px;
+      object-fit: cover;
+    }.profile-name {
+      font-weight: 600;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }.achievement {
+      color: white;
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }.achievement:hover{
+      text-decoration: underline;
+  }.achievement-icon {
+      margin-right: 15px;
+      width: 25px;
+    }.progress-container {
+      margin: 40px 0;
+    }.progress-title {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }.progress-bar {
+      background-color: white;
+      border-radius: 10px;
+      height: 30px;
+      margin-bottom: 5px;
+      position: relative;
+    }.progress-fill {
+      background-color: #ff8b00;
+      border-radius: 10px;
+      height: 100%;
+      position: relative;
+    }.progress-percent {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 600;
+      color: #011844;
+    }.dictionary-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid white;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      margin: 30px 0;
+      font-size: 1.1rem;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }.dictionary-btn:hover {
+      background: black;
+    }.settings {
+      display: flex;
+      align-items: center;
+      margin-top: 60px;
+      font-size: 1rem;
+    }.settings:hover {
+      
+      text-decoration: underline;
+    }/* Основное содержимое */
+    .main-content {
+      flex: 1;
+      padding: 50px;
+      overflow-y: auto;
+    }.search-container {
+      display: flex;
+      margin-bottom: 30px;
+      gap: 15px;
+    }.search-bar {
+      flex: 1;
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }.search-input {
+      border: none;
+      outline: none;
+      font-size: 1.1rem;
+      color: #576a8f;
+      width: 90%;
+    }.search-icon {
+      width: auto;
+      transition: transform 0.3s ease;
+    }.search-icon:hover {
+      transform: scale(1.15);
+    }.profile-btn {
+      width: 70px;
+      height: 70px;
+      background: white;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }.profile-btn:hover {
+      transform: scale(1.15);
+    }/* Курсы */
+    .courses-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }.course-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }.course-card:hover {transform: scale(1.05);
+    }.course-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }.course-content {
+      padding: 20px;
+    }.course-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: #011844;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }.course-info {
+      color: #576a8f;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }.recommended {
+      display: flex;
+      align-items: center;
+      color: #00c20b;
+      font-size: 0.9rem;
+    }.recommended-dot {
+      width: 10px;
+      height: 10px;
+      background: #00c20b;
+      border-radius: 50%;
+      margin-right: 10px;
+    }/* Фильтры */
+    .filters {
+    position: absolute;
+    top: 110px;
+    right: 20px;
+    z-index: 100;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 14.8px rgba(1, 24, 68, 0.1);
+  }.filter-section {
+      margin-bottom: 20px;
+    }.filter-title {
+      font-weight: 600;
+      color: #576a8f;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }.filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+  }.filter-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    border: 1px solid #576a8f;
+    border-radius: 3px;
+  }.filter-checkbox:checked ~ .checkmark:after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid #576a8f;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }.filter-label {
+    color: #576a8f;
+    font-size: 1rem;
+    margin-left: 10px;
+  }.course-line:hover{
+    text-decoration: underline;
+  }
+  /* Медиазапросы для адаптивности */
+    @media (max-width: 1200px) {
+      .main-content {
+      padding: 20px;
+    }.sidebar {
+        max-width: 330px;
+        padding: 40px 20px 40px 20px;
+      }
+      .settings {
+      margin-top: 0;
+    }
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+    }@media (max-width: 768px) {
+      .sidebar {
+        max-width: 100%;
+      }
+      .container {
+        flex-direction: column;
+      }
+    .search-container {
+        flex-direction: column;
+      }
+      .filters {
+      position: sticky;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+      .courses-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .profile-name {
+        font-size: 1.5rem;
+      }
+      
+      .logo-text {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Сайдбар -->
+    <div class="sidebar">
+      <div class="logo">
+        <img class="vector" src="img/vector-1.svg" width="64" />
+        <div class="logo-text">ROBUST</div>
+      </div>
+      
+      <div class="profile">
+        <img class="profile-img" src="img/image.png" />
+        <div class="profile-name">Вікторія Літвінова</div>
+      </div>
+      
+      <div class="achievements">
+        <a href="profile.html" class="achievement">
+          <img class="achievement-icon" src="img/star-3.svg" />
+          <div>50 днів занять підряд</div>
+        </a>
+        <a href="profile.html" class="achievement">
+          <img class="achievement-icon" src="img/star-3.svg" />
+          <div>101 парне завдання</div>
+        </a>
+        <a href="profile.html" class="achievement">
+          <div style="margin-left: 40px;">дивитися інші нагороди</div>
+        </a>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-title">Поточні курси</div>
+        <a href="course.html" class="course-line" style="color: white;">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 67%;"></div>
+            <div class="progress-percent">67%</div>
+          </div>
+          <div style="margin-bottom: 15px;">Загальна медична англійська</div>
+          
+        </a>
+        
+        <a href="course.html" class="course-line" style="color: white;">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 21%;"></div>
+          <div class="progress-percent">21%</div>
+        </div>
+        <div>Тактична медицина</div>
+        </a>
+      </div>
+      
+      <a href="dictionary.html" class="dictionary-btn">Мій словник</a>
+      
+      <div class="settings">
+        <img src="img/settings.svg" width="19" />
+        <a href="profile.html" style="margin-left: 10px; color: white;">налаштування профілю</a>
+      </div>
+    </div><!-- Основное содержимое -->
+    <div class="main-content">
+      <div class="search-container">
+        <div style="display: flex; gap: 15px; width: 100%;">
+          <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Знайти курс" />
+            <img class="search-icon" style="cursor: pointer;" src="img/search.svg" />
+          </div>
+          <div class="profile-btn" style="cursor: pointer;" id="filtersToggle">
+              <img src="img/sorting.svg" width="30" />
+            </div>
+        </div>
+        
+        <div class="filters" id="filtersPanel" style="display: none;">
+          <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+            <div class="filter-section">
+              <div class="filter-title">Кількість занять</div>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">5-10 уроків</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">11-20 уроків</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">21-30 уроків</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">31+ уроків</span>
+              </label>
+            </div>
+            
+            <div class="filter-section">
+              <div class="filter-title">Рівень</div>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">A1 / Elementary</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">A2 / Pre‐Intermediate</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">B1 / Intermediate</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">B2 / Upper Intermediate</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">C1 / Advanced</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">C2 / Proficiency</span>
+              </label>
+            </div>
+            
+            <div class="filter-section">
+              <div class="filter-title">Профільність</div>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">загальна англійська</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox">
+                <span class="checkmark"></span>
+                <span class="filter-label">професійна англійська</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="courses-container">
+        <!-- Карточка курса 1 -->
+        <a href="course.html" class="course-card">
+          <img class="course-image" src="img/image-2.png" />
+          <div class="course-content">
+            <div class="course-title">Полосна операція — перший словник</div>
+            <div class="course-info">
+              Кількість уроків: 15<br />
+              Базові знання: A1-С1
+            </div>
+            <div class="recommended">
+              <div class="recommended-dot"></div>
+              <div>Рекомендовано вам</div>
+            </div>
+          </div>
+        </a>
+        <!-- Карточка курса 2 -->
+        <a href="course.html" class="course-card">
+            <img class="course-image" src="img/Rectangle-733.png" />
+            <div class="course-content">
+              <div class="course-title">Аналізи і лабораторні дослідження</div>
+              <div class="course-info">
+                Кількість уроків: 31<br />
+                Базові знання: А2-C1
+              </div>
+              <div class="recommended">
+                <div class="recommended-dot"></div>
+                <div>Рекомендовано вам</div>
+              </div>
+            </div>
+          </a>
+
+        <!-- Карточка курса 2 -->
+        <a href="course.html" class="course-card">
+          <img class="course-image" src="img/Rectangle-736.png" />
+          <div class="course-content">
+            <div class="course-title">Загальна англійська - побудова речень</div>
+            <div class="course-info">
+              Кількість уроків: 13<br />
+              Базові знання: А2-B1
+            </div>
+            <div class="recommended">
+              <div class="recommended-dot"></div>
+              <div>Рекомендовано вам</div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Карточка курса 3 -->
+        <a href="course.html" class="course-card">
+          <img class="course-image" src="img/Rectangle-737.png" />
+          <div class="course-content">
+            <div class="course-title">100 перших іменників</div>
+            <div class="course-info">
+              Кількість уроків: 10<br />
+              Базові знання: А1
+            </div>
+          </div>
+        </a>
+        
+        <!-- Карточка курса 4 -->
+        <a href="course.html" class="course-card">
+          <img class="course-image" src="img/Rectangle-740.png" />
+          <div class="course-content">
+            <div class="course-title">"Як пройти в бібліотеку"</div>
+            <div class="course-info">
+              Кількість уроків: 11<br />
+              Базові знання: А1-B1
+            </div>
+          </div>
+        </a>
+        
+        <!-- Карточка курса 5 -->
+        <a href="course.html" class="course-card">
+          <img class="course-image" src="img/Rectangle-741.png" />
+          <div class="course-content">
+            <div class="course-title">Аграрій - базовий словник експортера</div>
+            <div class="course-info">
+              Кількість уроків: 39<br />
+              Базові знання: А2-B2
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+    document.getElementById('filtersToggle').addEventListener('click', function() {
+      const filtersPanel = document.getElementById('filtersPanel');
+      if (filtersPanel.style.display === 'none') {
+        filtersPanel.style.display = 'block';
+      } else {
+        filtersPanel.style.display = 'none';
+      }
+    });
+  </script>
+</html>

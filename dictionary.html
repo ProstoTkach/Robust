@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+  <style>
+    * {
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Inter', Arial, sans-serif;
+    }a{
+      text-decoration: none;
+    }.container {
+      display: flex;
+      min-height: 100vh;
+      background-color: #e8f1fe;
+    }/* Сайдбар */
+    .sidebar {
+      width: 100%;
+      max-width: 383px;
+      background-color: #011844;
+      color: white;
+      padding: 40px;
+      position: relative;
+    }.logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }.logo-text {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-left: 15px;
+    }.profile {
+      margin-bottom: 40px;
+    }.profile-img {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 20px;
+      object-fit: cover;
+    }.profile-name {
+      font-weight: 600;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }.achievement {
+      color: white;
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }.achievement:hover{
+      text-decoration: underline;
+  }.achievement-icon {
+      margin-right: 15px;
+      width: 25px;
+    }.progress-container {
+      margin: 40px 0;
+    }.progress-title {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }.progress-bar {
+      background-color: white;
+      border-radius: 10px;
+      height: 30px;
+      margin-bottom: 5px;
+      position: relative;
+    }.progress-fill {
+      background-color: #ff8b00;
+      border-radius: 10px;
+      height: 100%;
+      position: relative;
+    }.progress-percent {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 600;
+      color: #011844;
+    }.dictionary-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid white;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      margin: 30px 0;
+      font-size: 1.1rem;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }.dictionary-btn:hover {
+      background: black;
+    }.settings {
+      display: flex;
+      align-items: center;
+      margin-top: 60px;
+      font-size: 1rem;
+    }.settings:hover {
+      
+      text-decoration: underline;
+    }/* Основное содержимое */
+    .main-content {
+      flex: 1;
+      padding: 50px;
+      overflow-y: auto;
+    }.search-container {
+      display: flex;
+      margin-bottom: 30px;
+      gap: 15px;
+    }.search-bar {
+      flex: 1;
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }.search-input {
+      border: none;
+      outline: none;
+      font-size: 1.1rem;
+      color: #576a8f;
+      width: 90%;
+    }.search-icon {
+      width: auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }.search-icon:hover {
+      transform: scale(1.15);
+    }.profile-btn {
+      width: 70px;
+      height: 70px;
+      background: white;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }.profile-btn:hover {
+      transform: scale(1.15);
+    }/* Курсы */
+    .courses-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }.course-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+    }.course-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }.course-content {
+      padding: 20px;
+    }.course-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: #011844;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }.course-info {
+      color: #576a8f;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }.recommended {
+      display: flex;
+      align-items: center;
+      color: #00c20b;
+      font-size: 0.9rem;
+    }.recommended-dot {
+      width: 10px;
+      height: 10px;
+      background: #00c20b;
+      border-radius: 50%;
+      margin-right: 10px;
+    }/* Фильтры */
+    .filters {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    z-index: 100;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 14.8px rgba(1, 24, 68, 0.1);
+  }.filter-title {
+      font-weight: 600;
+      color: #576a8f;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }.filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+  }.filter-radio {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.course-line:hover{
+    text-decoration: underline;
+  }
+.radiomark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  border: 2px solid #576a8f;
+  border-radius: 50%;
+}
+
+.filter-radio:checked ~ .radiomark::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #576a8f;
+}
+.filter-label {
+    color: #576a8f;
+    font-size: 1rem;
+    margin-left: 10px;
+  }
+  /* Search container */
+  .search-bar {
+    flex: 1;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }.search-input {
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    color: #576a8f;
+    width: 90%;
+  }.profile-btn {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+  }/* Dictionary container */
+  .dictionary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }.dictionary-title {
+    font-weight: 600;
+    color: #011844;
+    font-size: 2rem;
+    margin: 0;
+  }.back-to-courses {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #011844;
+    font-weight: 500;
+  }
+        .back-to-courses:hover {
+            text-decoration: underline;
+        }.back-arrow {
+    margin-right: 10px;
+  }/* Word search */
+  .search-word-container {
+    margin-bottom: 30px;
+  }.search-input-container {
+    position: relative;
+    width: 100%;
+  }.word-search-input {
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(1, 24, 68, 0.2);
+    font-size: 1rem;
+  }.word-search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }/* Word list */
+  .word-list-header {
+    display: grid;
+    grid-template-columns: 1fr 5fr 7fr 7fr 7fr;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(1, 24, 68, 0.1);
+    font-weight: 700;
+    color: #011844;
+  }.word-item {
+    display: grid;
+    grid-template-columns: 1fr 5fr 7fr 7fr 7fr;
+    gap: 10px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(1, 24, 68, 0.1);
+    align-items: center;
+  }.word-text {
+    font-weight: 500;
+    color: #011844;
+  }.word-translation {
+    color: #576a8f;
+  }.word-example {
+    color: #576a8f;
+  }.word-level {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }.level-badge {
+    text-align: center;
+    width: auto;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }.level-good {
+    background-color: #00a209;
+    color: white;
+  }.level-in-progress {
+    background-color: #f2b300;
+    color: #011844;
+  }.level-to-learn {
+    background-color: #d9463b;
+    color: white;
+  }.level-edit {
+    cursor: pointer;
+  }/* Word actions */
+  .word-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 30px;
+  }.add-word-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 30px;
+    border: 2px solid #011844;
+    border-radius: 15px;
+    background: transparent;
+    font-weight: 700;
+    font-size: 20px;
+    color: #011844;
+    cursor: pointer;
+  }.add-word-btn:hover {
+    background-color: white;
+  }.practice-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    padding: 20px 30px;
+    background: #ff8b00;
+    border-radius: 15px;
+    border: none;
+    font-weight: 700;
+    color: #011844;
+    cursor: pointer;
+  }
+  
+  .practice-btn:hover {
+            background: #ffbe6e;
+        }
+  /* Медиазапросы для адаптивности */
+    @media (max-width: 1200px) {
+        .main-content {
+      padding: 20px;
+    }.sidebar {
+        max-width: 330px;
+        padding: 40px 20px 40px 20px;
+      }
+      .settings {
+      margin-top: 0;
+    }
+    .search-container {
+        flex-direction: column;
+      }
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+    }@media (max-width: 768px) {
+      .sidebar {
+        max-width: 100%;
+      }
+      .container {
+        flex-direction: column;
+      }
+      
+      .filters {
+      position: sticky;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+      
+      .courses-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .profile-name {
+        font-size: 1.5rem;
+      }
+      
+      .logo-text {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Сайдбар -->
+    <div class="sidebar">
+      <a href="main.html" class="logo">
+        <img class="vector" src="img/vector-1.svg" width="64" />
+        <div class="logo-text">ROBUST</div>
+      </a>
+      
+      <div class="profile">
+        <img class="profile-img" src="img/image.png" />
+        <div class="profile-name">Вікторія Літвінова</div>
+      </div>
+      
+      <div class="achievements">
+        <a href="profile.html" class="achievement">
+          <img class="achievement-icon" src="img/star-3.svg" />
+          <div>50 днів занять підряд</div>
+        </a>
+        <a href="profile.html" class="achievement">
+          <img class="achievement-icon" src="img/star-3.svg" />
+          <div>101 парне завдання</div>
+        </a>
+        <a href="profile.html" class="achievement">
+          <div style="margin-left: 40px;">дивитися інші нагороди</div>
+        </a>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-title">Поточні курси</div>
+        <a href="course.html" class="course-line" style="color: white;">
+
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 67%;"></div>
+          <div class="progress-percent">67%</div>
+        </div>
+        <div style="margin-bottom: 15px;">Загальна медична англійська</div>
+      </a>
+        
+      <a href="course.html" class="course-line" style="color: white;">
+      
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 21%;"></div>
+          <div class="progress-percent">21%</div>
+        </div>
+        <div>Тактична медицина</div>
+      </a>
+      </div>
+      
+      <a href="dictionary.html" class="dictionary-btn">Мій словник</a>
+      
+      <div class="settings">
+        <img src="img/settings.svg" width="19" />
+        <a href="profile.html" style="margin-left: 10px; color: white; text-decoration: none;">налаштування профілю</a>
+      </div>
+    </div><!-- Основное содержимое -->
+    <div class="main-content">    
+          <div class="dictionary-header">
+            <h1 class="dictionary-title">Мій словник</h1>
+            <a href="main.html" class="back-to-courses">
+                <img src="img/arrow-back.svg" alt="Arrow" class="back-arrow" />
+                <span>до курсів</span>
+            </a>
+          </div>
+
+          <div class="search-container">
+            <div style="display: flex; gap: 15px; width: 100%;">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Пошук слів" />
+                    <img class="search-icon" src="img/search.svg" />
+                  </div>
+                  <div class="profile-btn" id="filtersToggle">
+                    <img src="img/sort.svg" width="30" />
+                  </div>
+            </div>
+            <div style="display: flex; gap: 15px; min-width: fit-content; justify-content: center;">
+                <button class="add-word-btn">
+                    <span>Додати слово</span>
+                  </button>
+                  <a href="cards.html" class="practice-btn">Практика</a>
+            </div>
+            <div class="filters" id="filtersPanel" style="display: none;">
+                <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                  <div class="filter-section">
+                    <div class="filter-title">Сортувати:</div>
+              
+                    <label class="filter-option">
+                      <input type="radio" name="lessons-count" class="filter-radio" />
+                      <span class="radiomark"></span>
+                      <span class="filter-label">За датою додавання</span>
+                    </label>
+              
+                    <label class="filter-option">
+                      <input type="radio" name="lessons-count" class="filter-radio" />
+                      <span class="radiomark"></span>
+                      <span class="filter-label">За рівнем знання (від слабкого до сильного)</span>
+                    </label>
+              
+                    <label class="filter-option">
+                      <input type="radio" name="lessons-count" class="filter-radio" />
+                      <span class="radiomark"></span>
+                      <span class="filter-label">За алфавітом</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+            
+
+              
+          </div>
+      
+          <div class="word-list-container">
+            <div class="word-list-header">
+                <div></div>
+              <div class="header-item">Слово</div>
+              <div class="header-item">Переклад</div>
+              <div class="header-item">Приклад</div>
+              <div class="header-item">Рівень знання</div>
+            </div>
+      
+            <div class="word-item">
+              <img src="img/star-3.svg" alt="Edit" style="width: 17px;" />
+              <div class="word-text">vital signs</div>
+              <div class="word-translation">життєві показники</div>
+              <div class="word-example">Monitor vital signs hourly.</div>
+              <div class="word-level">
+                <span class="level-badge level-good">Добре знайоме</span>
+                <img src="img/delete.svg" alt="Edit" class="level-edit" />
+              </div>
+            </div>
+      
+            <div class="word-item">
+                <img src="img/star-8.svg" alt="Edit" style="width: 17px;" />
+              <div class="word-text">syringe</div>
+              <div class="word-translation">шприц</div>
+              <div class="word-example">I need a sterile syringe.</div>
+              <div class="word-level">
+                <span class="level-badge level-in-progress">В процесі</span>
+                <img src="img/delete.svg" alt="Edit" class="level-edit" />
+              </div>
+            </div>
+      
+            <div class="word-item">
+                <img src="img/star-3.svg" alt="Edit" style="width: 17px;" />
+              <div class="word-text">vital signs</div>
+              <div class="word-translation">життєві показники</div>
+              <div class="word-example">Monitor vital signs hourly.</div>
+              <div class="word-level">
+                <span class="level-badge level-to-learn">Треба вивчити</span>
+                <img src="img/delete.svg" alt="Edit" class="level-edit" />
+              </div>
+            </div>
+
+            <div class="word-item" style="cursor: pointer; border-bottom: 0;">
+                <img src="img/plus.svg" alt="Edit" style="width: 17px;" />
+              <div class="word-text">Додати слово</div>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+  </div>
+</body>
+<script>
+    document.getElementById('filtersToggle').addEventListener('click', function() {
+      const filtersPanel = document.getElementById('filtersPanel');
+      if (filtersPanel.style.display === 'none') {
+        filtersPanel.style.display = 'block';
+      } else {
+        filtersPanel.style.display = 'none';
+      }
+    });
+  </script>
+</html>

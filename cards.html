@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <style>
+    /* Базовые стили */
+    body {
+      margin: 0;
+      font-family: "Roboto Slab", Helvetica;
+    }
+
+    .underline-hov:hover {
+            text-decoration: underline;
+        }
+    a {
+      text-decoration: none;
+    }
+
+    .screen {
+      background-color: #e8f1fe;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      position: relative;
+      height: 100%;
+    }
+
+    /* Кнопка "назад" */
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 40px 0 40px 40px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .back-button .text-wrapper {
+      font-weight: 500;
+      color: #011844;
+      font-size: 1rem;
+      z-index: 10;
+    }
+
+    .back-button .vector {
+      width: 12px;
+      height: 11px;
+      z-index: 10;
+    }
+
+    /* Логотип */
+    .logo {
+      position: absolute;
+      top: -10px;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }
+    .logo img {
+      width: 53px;
+      height: 37px;
+    }
+
+    .logo .text-wrapper-6 {
+      font-weight: 700;
+      color: #011844;
+      font-size: 1.8rem;
+    }
+
+    /* Карточка */
+    .card-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 835px;
+      height: 525px;
+      margin: 0 auto;
+    position: relative;
+    overflow: visible;
+    }
+
+    .card {
+
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      box-sizing: border-box;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    transform-origin: center;
+      cursor: pointer;
+    }
+
+    .swiping-right {
+    transform: translateX(150%) rotate(15deg) !important;
+    opacity: 0;
+  }
+  
+  .swiping-left {
+    transform: translateX(-150%) rotate(-15deg) !important;
+    opacity: 0;
+  }
+  
+  .new-card {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  
+  .card-visible {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease-out;
+  }
+  
+  .flipped {
+    transform: rotateY(180deg);
+  
+  }
+    .swipe-right {
+    transform: translateX(150%) rotate(15deg) !important;
+    opacity: 0;
+  }
+  
+  .swipe-left {
+    transform: translateX(-150%) rotate(-15deg) !important;
+    opacity: 0;
+  }
+  
+  .card-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  
+  .card-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease-out;
+  }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: calc(100% - 60px);
+      height: calc(100% - 60px);
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      text-align: center;
+    }
+
+    .card-back img {
+      max-width: 100%;
+      max-height: 200px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+
+    .card-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .hint-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hint-toggle .text-wrapper-4 {
+      font-weight: 500;
+      color: #aebbd2;
+      font-size: 1rem;
+    }
+
+    .hint-toggle .layer {
+      width: 13px;
+      height: 18px;
+    }
+
+    .card-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .text-wrapper-5 {
+      font-weight: 500;
+      color: #576a8f;
+      font-size: 1rem;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .volume-control img {
+      height: 18px;
+    }
+
+    .volume-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 15px;
+    }
+
+    .volume-bars img {
+      height: 100%;
+    }
+
+    .card-controls .star {
+      width: 19px;
+      height: 18px;
+    }
+
+    .card-content {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .text-wrapper-2 {
+      font-family: "Roboto Slab-SemiBold", Helvetica;
+      font-weight: 600;
+      color: #011844;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .text-wrapper-3 {
+      font-family: "Roboto Slab-Regular", Helvetica;
+      font-weight: 400;
+      color: #576a8f;
+      font-size: 1.5rem;
+      padding-bottom: 30px;
+      margin: 0;
+    }
+
+    /* Кнопки действий */
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .learn-button,
+    .know-button {
+      border: none;
+      border-radius: 15px;
+      padding: 20px 40px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.2rem;
+      min-width: 150px;
+      height: auto;
+    }
+
+    .learn-button {
+      background-color: #d9463b;
+    }
+
+    .know-button {
+      background-color: #00a209;
+    }
+
+    .hidden-block {
+      display: none;
+    }
+
+    /* Адаптивные стили */
+    @media (max-width: 768px) {
+      .back-button {
+        margin: 20px 0 80px 20px;
+      }
+
+      .logo {
+        top: 40px;
+      }
+
+      .logo .text-wrapper-6 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .card-content .text-wrapper-2 {
+        font-size: 2rem;
+      }
+
+      .card-content .text-wrapper-3 {
+        font-size: 1.2rem;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .learn-button,
+      .know-button {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .hidden-block {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .to-hidden-block {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="screen">
+    <div class="container">
+      <a href="dictionary.html" class="back-button underline-hov">
+        <img class="vector" src="img/arrow-back.svg" alt="back" />
+        <div class="text-wrapper">повернутися</div>
+      </a>
+
+      <a href="main.html" class="logo">
+        <img src="img/vector-1.svg" alt="logo" />
+        <div class="text-wrapper-6">ROBUST</div>
+      </a>
+
+      <div style="gap: 10px; display: flex; justify-content: space-evenly; align-items: center;">
+        <div class="to-hidden-block">
+          <button class="learn-button">
+            <div class="text-wrapper-7">Ще вчу</div>
+          </button>
+        </div>
+
+        <div class="card-container">
+          <div class="card" id="flipCard">
+            <div class="card-front">
+              <div class="card-header">
+                <div class="hint-toggle">
+                  <img class="layer" src="img/hint.svg" alt="hint" />
+                  <div class="text-wrapper-4">сховати підказки</div>
+                </div>
+                <div class="text-wrapper-5">1 / 3</div>
+                <div class="volume-control">
+                  <img src="img/sound.svg" alt="volume" />
+                  <img src="img/star-3.svg" alt="volume" />
+                </div>
+              </div>
+
+              <h1 class="text-wrapper-2">vital signs</h1>
+              <p class="text-wrapper-3">Monitor vital signs hourly</p>
+
+            </div>
+
+            <div class="card-back">
+              <div class="card-header">
+                <div class="hint-toggle">
+                  <img style="margin: 0;" class="layer" src="img/hint.svg" alt="hint" />
+                  <div class="text-wrapper-4">сховати підказки</div>
+                </div>
+                <div class="text-wrapper-5">1 / 3</div>
+                <div class="volume-control">
+                  <img style="margin: 0;" src="img/sound.svg" alt="volume" />
+                  <img style="margin: 0;" src="img/star-3.svg" alt="volume" />
+                </div>
+              </div>
+              <div
+                style="margin-bottom: 30px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <img src="img/vital-signs.png" alt="Пример жизненных показателей" />
+                <h1 class="text-wrapper-2">життєві показники</h1>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="to-hidden-block">
+          <button class="know-button">
+            <div class="text-wrapper-8">Знаю</div>
+          </button>
+        </div>
+
+      </div>
+      <div class="hidden-block">
+        <button class="learn-button">
+          <div class="text-wrapper-7">Ще вчу</div>
+        </button>
+        <button class="know-button">
+          <div class="text-wrapper-8">Знаю</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cardContainer = document.querySelector('.card-container');
+      const knowButtons = document.querySelectorAll('.know-button');
+      const learnButtons = document.querySelectorAll('.learn-button');
+      
+      // Инициализация первой карточки
+      let currentCard = document.getElementById('flipCard');
+      currentCard.classList.add('card-visible');
+  
+      function createNewCard() {
+        const newCard = currentCard.cloneNode(true);
+        newCard.classList.remove('flipped', 'swiping-right', 'swiping-left', 'card-visible');
+        newCard.classList.add('new-card');
+        newCard.id = 'flipCard-' + Date.now();
+        return newCard;
+      }
+  
+      function swipeCard(direction) {
+        // Блокируем кнопки на время анимации
+        knowButtons.forEach(btn => btn.disabled = true);
+        learnButtons.forEach(btn => btn.disabled = true);
+        
+        // Добавляем класс анимации к текущей карточке
+        currentCard.style.transition = 'all 0.5s ease';
+        currentCard.classList.add(direction === 'right' ? 'swiping-right' : 'swiping-left');
+        
+        // Создаем новую карточку
+        const newCard = createNewCard();
+        cardContainer.appendChild(newCard);
+        
+        // Анимируем появление новой карточки
+        setTimeout(() => {
+          newCard.classList.add('card-visible');
+        }, 10);
+        
+        // После завершения анимации удаляем старую карточку
+        setTimeout(() => {
+          currentCard.remove();
+          currentCard = newCard;
+          
+          // Добавляем обработчики для новой карточки
+          currentCard.addEventListener('click', flipCardHandler);
+          
+          // Разблокируем кнопки
+          knowButtons.forEach(btn => btn.disabled = false);
+          learnButtons.forEach(btn => btn.disabled = false);
+        }, 500);
+      }
+  
+      function flipCardHandler() {
+        this.classList.toggle('flipped');
+      }
+  
+      // Добавляем обработчики для кнопок
+      knowButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!button.disabled) swipeCard('right');
+        });
+      });
+  
+      learnButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!button.disabled) swipeCard('left');
+        });
+      });
+  
+      // Инициализация обработчика для первой карточки
+      currentCard.addEventListener('click', flipCardHandler);
+    });
+  </script>
+</body>
+
+</html>

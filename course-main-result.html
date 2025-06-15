@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+            background-color: #e8f1fe;
+            color: #011844;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 26.6px;
+            color: black;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            text-decoration: none;
+            color: #011844;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        /* Main layout */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 0 0 300px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            z-index: 1;
+            height: min-content;
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
+            font-size: 23px;
+            line-height: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .menu {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .menu-item {
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .menu-item.active {
+            color: #ffffff;
+        }
+        .menu-item.active::before {
+            background-color: #011844;
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%; /* Смещаем на 50% вправо */
+            width: calc(100% + 60px); /* На всю ширину viewport */
+            transform: translateX(-50%); /* Центрируем */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .menu-item.inactive {
+            color: #576a8f;
+            cursor: pointer;
+        }
+        
+        .menu-item.disabled {
+            color: #cacfd8;
+        }
+        
+        /* Content area */
+        .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.completion-message {
+    font-family: "Roboto Slab", sans-serif;
+    font-weight: 600;
+    color: #011844;
+    font-size: 35px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.stats {
+    margin-bottom: 20px;
+}
+
+.stats-item {
+    font-family: "Inter", sans-serif;
+    font-size: 25px;
+    line-height: 1.4;
+    color: #576a8f;
+}
+
+.percentage {
+    font-weight: 700;
+    color: #00c20b;
+}
+
+.time, .words-learned {
+    font-weight: 500;
+}
+
+.add-to-dictionary {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    color: #576a8f;
+    font-size: 18px;
+    text-decoration: underline;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.add-to-dictionary:hover {
+            color: black;
+        }
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.button {
+    min-width: 280px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.retake-lesson {
+    border: 1px solid #011844;
+    background: transparent;
+}
+
+.retake-lesson:hover {
+            background: rgb(196, 196, 196);
+        }
+.next-lesson {
+    background-color: #ff8b00;
+}
+.next-lesson:hover {
+    background-color: #ffb55a;
+}
+
+.button-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    color: #011844;
+    font-size: 20px;
+}
+        
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .sidebar {
+                order: 2;
+                flex: 0 0 auto;
+                width: 100%;
+            }
+            
+            .content {
+                order: 1;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .exercise-text {
+                padding-left: 0;
+            }
+            
+            .drag-words {
+                justify-content: center;
+            }
+            .header{
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="course-main.html" class="back-link">
+                <img src="img/arrow-back.svg" alt="Back" width="12">
+                повернутися
+            </a>
+            <a href="main.html" class="logo">
+                <img src="img/vector-1.svg" alt="ROBUST" width="40">
+                ROBUST
+            </a>
+        </header>
+        
+        <main class="main-content">
+            <aside class="sidebar">
+                <h2 class="sidebar-title">Полосна операція — перший словник</h2>
+                <ul class="menu">
+                    <li class="menu-item active">1 lesson</li>
+                    <li class="menu-item inactive">2 lesson</li>
+                    <li class="menu-item inactive"><a href="test.html" style="color: black; ">Test</a></li>
+                    <li class="menu-item inactive">3 lesson</li>
+                    <li class="menu-item disabled">4 lesson</li>
+                    <li class="menu-item disabled">5 lesson</li>
+                    <li class="menu-item disabled">6 lesson</li>
+                    <li class="menu-item disabled">Test</li>
+                    <li class="menu-item disabled">7 lesson</li>
+                    <li class="menu-item disabled">8 lesson</li>
+                    <li class="menu-item disabled">9 lesson</li>
+                    <li class="menu-item disabled">Final Test</li>
+                </ul>
+            </aside>
+            
+            <div class="content">
+                <div class="completion-message">Урок завершено! Гарна робота!</div>
+                
+                <div class="stats">
+                    <p class="stats-item correct-answers">
+                        <span class="percentage">90% правильних відповідей</span><br>
+                        <span class="time">Час виконання: 16 хв</span><br>
+                        <span class="words-learned">Нові вивчені слова: 8</span>
+                    </p>
+                </div>
+                
+                <p class="add-to-dictionary">Додати слова в персональний словник</p>
+                
+                <div class="buttons-container">
+                    <a href="course-main.html" class="button retake-lesson">
+                        <div class="button-text">Перепройти урок</div>
+                    </a>
+                    
+                    <a href="test.html" class="button next-lesson">
+                        <div class="button-text">Наступний урок</div>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+  
+</html>

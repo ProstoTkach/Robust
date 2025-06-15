@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+            background-color: #e8f1fe;
+            color: #011844;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 26.6px;
+            color: black;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            text-decoration: none;
+            color: #011844;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        /* Main layout */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 0 0 300px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            z-index: 1;
+            height: min-content;
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
+            font-size: 23px;
+            line-height: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .menu {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .menu-item {
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .menu-item.active {
+            color: #ffffff;
+        }
+        .menu-item.active::before {
+            background-color: #011844;
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%; /* Смещаем на 50% вправо */
+            width: calc(100% + 60px); /* На всю ширину viewport */
+            transform: translateX(-50%); /* Центрируем */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .menu-item.inactive {
+            color: #576a8f;
+            cursor: pointer;
+        }
+        
+        .menu-item.disabled {
+            color: #cacfd8;
+        }
+        
+        /* Content area */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .completion-message {
+            font-family: "Roboto Slab", sans-serif;
+            font-weight: 600;
+            color: #0E68A6;
+            font-size: 35px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .completion-message-2 {
+            font-family: "Roboto Slab", sans-serif;
+            font-weight: 600;
+            color: #011844;
+            font-size: 25px;
+            margin-bottom: 50px;
+            line-height: 1.2;
+        }
+        .stats {
+            margin-bottom: 50px;
+        }
+
+        .stats-item {
+            font-family: "Inter", sans-serif;
+            font-size: 25px;
+            line-height: 1.4;
+            color: #576a8f;
+        }
+
+        .percentage {
+            font-weight: 700;
+            color: #00c20b;
+        }
+
+        .time, .words-learned {
+            font-weight: 500;
+        }
+
+        .add-to-dictionary {
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
+            color: #576a8f;
+            font-size: 18px;
+            text-decoration: underline;
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+
+        .add-to-dictionary:hover {
+            color: black;
+        }
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            min-width: 280px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .retake-lesson {
+            border: 1px solid #011844;
+            background: transparent;
+        }
+        .retake-lesson:hover {
+            background: rgb(196, 196, 196);
+        }
+
+
+        .next-lesson {
+            background-color: #ff8b00;
+        }
+
+        .next-lesson:hover {
+    background-color: #ffb55a;
+}
+        .button-text {
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            color: #011844;
+            font-size: 20px;
+        }
+        
+        /* Certificate overlay styles */
+        .certificate-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(1, 24, 68, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 10vh 20px;
+            height: 100vh;
+        }
+        
+        .certificate-container {
+            position: relative;
+            max-width: 920px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
+        }
+
+        .certificate-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="%23011644" fill-opacity="0.05" d="M20 20h10v10H20zM50 20h10v10H50zM80 20h10v10H80zM20 50h10v10H20zM50 50h10v10H50zM80 50h10v10H80zM20 80h10v10H20zM50 80h10v10H50zM80 80h10v10H80z"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .decoration-pattern {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: url('img/logo-blue.svg');
+            background-repeat: repeat;
+            background-size: 120px 120px;
+            opacity: 0.04;
+            z-index: 1;
+            transform: rotate(-25deg);
+            transform-origin: center center;
+            pointer-events: none;
+        }
+
+        .certificate-content {
+            position: relative;
+            z-index: 4;
+            padding: 15px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .certificate-content {
+                padding: 30px;
+            }
+        }
+
+        .certificate-header {
+            background-color: #011844;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            margin-bottom: 40px;
+        }
+
+        .certificate-title {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 2.5rem;
+            line-height: 1.1;
+        }
+
+        .certificate-text {
+            color: #011844;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .recipient-name {
+            color: #ff8b00;
+            font-weight: 600;
+            font-size: 2.5rem;
+            margin: 20px 0;
+            line-height: 1.2;
+        }
+
+        .course-name {
+            color: #0e68a6;
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin: 20px 0;
+        }
+
+        .grade {
+            font-weight: 600;
+            color: #011844;
+            font-size: 1.8rem;
+            margin: 20px 0;
+        }
+
+        .date-range {
+            color: #576a8f;
+            font-size: 0.9rem;
+            text-align: end;
+            margin-top: auto;
+        }
+
+        .certificate-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            color: #011844;
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        .certificate-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 576px) {
+            .certificate-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .certificate-btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .certificate-btn-outline {
+            border: 1px solid #011844;
+            color: #011844;
+            background: transparent;
+        }
+
+        .certificate-btn-outline:hover {
+            background: #011844;
+            color: white;
+        }
+
+        .certificate-btn-primary {
+            background-color: #ff8b00;
+            color: #011844;
+            border: none;
+        }
+
+        .certificate-btn-primary:hover {
+            background-color: #e67e00;
+        }
+
+        .close-certificate {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .sidebar {
+                order: 2;
+                flex: 0 0 auto;
+                width: 100%;
+            }
+            
+            .content {
+                order: 1;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .exercise-text {
+                padding-left: 0;
+            }
+            
+            .drag-words {
+                justify-content: center;
+            }
+            
+            .certificate-title {
+                font-size: 2rem;
+            }
+            
+            .recipient-name {
+                font-size: 2rem;
+            }
+            
+            .course-name {
+                font-size: 1.5rem;
+            }
+            .header{
+                flex-direction: row;
+            }
+        }
+        .back-link-2 {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-bottom: 20px;
+            margin-left: 15vw;
+            cursor: pointer;
+        }
+
+        .back-link-2 img {
+            margin-right: 8px;
+        }
+        .back-link-2:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="course-main.html" class="back-link">
+                <img src="img/arrow-back.svg" alt="Back" width="12">
+                повернутися
+            </a>
+            <a href="main.html" class="logo">
+                <img src="img/vector-1.svg" alt="ROBUST" width="40">
+                ROBUST
+            </a>
+        </header>
+        
+        <main class="main-content">
+            <aside class="sidebar">
+                <h2 class="sidebar-title">Полосна операція — перший словник</h2>
+                <ul class="menu">
+                    <li class="menu-item inactive">1 lesson</li>
+                    <li class="menu-item inactive">2 lesson</li>
+                    <li class="menu-item inactive">Test</li>
+                    <li class="menu-item inactive">3 lesson</li>
+                    <li class="menu-item inactive">4 lesson</li>
+                    <li class="menu-item inactive">5 lesson</li>
+                    <li class="menu-item inactive">6 lesson</li>
+                    <li class="menu-item inactive">Test</li>
+                    <li class="menu-item inactive">7 lesson</li>
+                    <li class="menu-item inactive">8 lesson</li>
+                    <li class="menu-item inactive">9 lesson</li>
+                    <li class="menu-item active">Final Test</li>
+                </ul>
+            </aside>
+            
+            <div class="content">
+                <div class="completion-message">Вітаємо із завершенням курсу! </div>
+
+                <div class="completion-message-2">Ви не перестаєте вражати своєю наполегливістю 💯 </div>
+                
+                <div class="stats">
+                    <p class="stats-item correct-answers">
+                        <span class="percentage">94% правильних відповідей <br> Grade A</span><br>
+                        <span class="time">Час виконання: 36 хв</span>
+                    </p>
+                </div>
+                
+                
+                <div class="buttons-container">
+                    <a class="button retake-lesson">
+                        <div class="button-text">Поділитися</div>
+                    </a>
+                    
+                    <button id="show-certificate" class="button next-lesson">
+                        <div class="button-text">Отримати сертифікат</div>
+                    </button>
+                </div>
+
+                <a href="main.html" class="add-to-dictionary">Ходімо вчитися далі!</a>
+
+            </div>
+        </main>
+    </div>
+    
+    <!-- Certificate Overlay -->
+    <div id="certificate-overlay" class="certificate-overlay">
+        <div href="course-result.html" id="close-certificate" class="back-link-2">
+            <img src="img/arrow-left-white.svg" alt="Back" width="12">
+            повернутися
+        </div>
+        <div class="certificate-container">
+            <!-- Background with grid -->
+            <div class="certificate-background"></div>
+
+            <!-- Decorative pattern -->
+            <div class="decoration-pattern"></div>
+
+            <!-- Main content -->
+            <div class="certificate-content">
+                <div class="certificate-header">
+                    <h1 class="certificate-title">Certificate of Completion</h1>
+                </div>
+
+                <p class="certificate-text">This certificate is awarded to</p>
+                <h2 class="recipient-name">[Ім'я та Прізвище Учасника]</h2>
+                <p class="certificate-text">for successfully completing the English language course</p>
+                <h3 class="course-name">[Назва Курсу]</h3>
+                <p class="grade">Grade: A</p>
+
+                <div style="width: 100%; display: flex; justify-content: space-between;">
+                    <div class="certificate-logo">
+                        <img src="img/vector-1.svg" alt="Logo" width="45">
+                        <span class="logo-text">ROBUST</span>
+                    </div>
+    
+                    <p class="date-range">held from [Дата Початку]<br>to [Дата Завершення]</p>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+        <div class="certificate-buttons">
+            <button class="certificate-btn certificate-btn-primary">Завантажити pdf</button>
+        </div>
+    </div>
+    
+    <script>
+        // Certificate display functionality
+        document.getElementById('show-certificate').addEventListener('click', function() {
+            document.getElementById('certificate-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when certificate is open
+        });
+        
+        document.getElementById('close-certificate').addEventListener('click', function() {
+            document.getElementById('certificate-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        });
+        
+        // Close when clicking outside the certificate
+        document.getElementById('certificate-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.getElementById('certificate-overlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>

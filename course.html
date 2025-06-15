@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Добавленные стили для адаптивности */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }a {text-decoration: none;}
+        body {
+            background-color: #e8f1fe;
+            font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+        }.container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 60px;
+        }
+        
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }.logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: black;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }.logo-text {
+            font-weight: 700;
+            color: #011844;
+            font-size: clamp(24px, 3vw, 35px);
+        }.back-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #011844;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }.content-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }@media (min-width: 768px) {
+            .content-card {
+                flex-direction: row;
+            }
+        }.card-image {
+            width: 35%;
+            object-fit: cover;
+        }@media (max-width: 768px) {
+            .card-image {
+                width: 100%;
+                height: 200px;
+            }
+        }.card-content {
+            height: 100%;
+            padding: 30px;
+            width: 100%;
+            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }@media (min-width: 768px) {
+            .card-content {
+                width: 65%;
+                padding: 45px;
+            }
+        }.card-title {
+            font-weight: 600;
+            color: #011844;
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.2;
+        }.card-description {
+            margin: 15px 0;
+            font-weight: 400;
+            color: #576a8f;
+            font-size: clamp(16px, 2vw, 20px);
+            line-height: 1.5;
+        }.testimonial {
+            min-width: 400px;
+            border: 1.5px solid #ff8b00;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+        }.testimonial-text {
+            font-weight: 500;
+            color: #011844;
+            font-size: clamp(16px, 2vw, 18px);
+            line-height: 1.4;
+        }.testimonial-author {
+            font-weight: 400;
+            color: #576a8f;
+            font-size: 18px;
+        }.rating {
+            margin-bottom: 15px;
+        }.cta-button {
+            display: inline-block;
+            background-color: #ff8b00;
+            color: #011844;
+            font-weight: 700;
+            font-size: 20px;
+            padding: 15px 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+        }.navigation-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }.nav-button {
+            width: 36px;
+            height: 37px;
+            border: 1.5px solid #576a8f;
+            border-radius: 4.51px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+.achievements-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: calc(100% + 60px);
+    left: -30px;
+}@media (min-width: 768px) {
+            .achievements-wrapper {
+    width: calc(100% + 100px);
+    left: -45px;
+            }}
+.achievements {
+    padding: 0 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}@media (min-width: 768px) {
+            .achievements {
+                padding: 0 45px;
+            }}.achievements::-webkit-scrollbar {
+    display: none;
+}
+.achievements-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}.arrow-btn {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid #576a8f;
+    border-radius: 4px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}.arrow-btn:hover {
+    border-color: #ff8b00;
+}.arrow-btn img {
+    width: 16px;
+    height: 12px;
+}@media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="main.html" class="back-link">
+                <img class="vector-4" src="img/arrow-back.svg" alt="Back arrow" />
+                <span class="text-wrapper-6">повернутися</span>
+            </a>
+            
+            <a href="main.html" class="logo">
+                <img class="vector" src="img/vector-1.svg" alt="Logo icon" />
+                <div class="logo-text">ROBUST</div>
+            </a>
+        </header>
+            <div class="content-card">
+                <img class="card-image" src="img/image-3.png" alt="Course image" />
+                
+                <div class="card-content">
+                    <h1 class="card-title">Полосна операція — перший словник</h1>
+                    
+                    <p class="card-description">
+                        Цей курс допоможе вам швидко освоїти базову медичну термінологію англійською мовою. 
+                        Ви дізнаєтесь, як правильно називати симптоми, органи, діагнози та вести комунікацію 
+                        з пацієнтами та колегами.
+                    </p>
+                    <div class="achievements-wrapper">
+                        <div class="achievements">
+
+                            <div class="testimonial">
+                                <div class="rating">
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                </div>
+                                <p class="testimonial-text">
+                                    Дуже корисний курс! Почала краще розуміти медичні терміни, 
+                                    які використовують колеги з-за кордону.
+                                </p>
+                                <div class="testimonial-author">Ірина П., медсестра</div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="rating">
+
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />
+                                    <img src="img/star-3.svg" style="width: 20px; margin-right: 8px;" alt="Achievement" />                                </div>
+                                <p class="testimonial-text">
+                                    Дуже корисний курс! Почала краще розуміти медичні терміни, 
+                                    які використовують колеги з-за кордону.
+                                </p>
+                                <div class="testimonial-author">Ірина П., медсестра</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                        <a href="course-main.html" class="cta-button">Розпочати</a>
+                    
+                    <div class="navigation-buttons">
+                        <div class="achievements-controls">
+                            <button class="arrow-btn left-arrow">
+                                <img src="img/arrow-left.svg" alt="Left arrow">
+                            </button>
+                            <button class="arrow-btn right-arrow">
+                                <img src="img/arrow-right-2.svg" alt="Right arrow">
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const achievements = document.querySelector('.achievements');
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+    const scrollAmount = 320; // Ширина карточки + отступ
+
+    leftArrow.addEventListener('click', () => {
+        achievements.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    rightArrow.addEventListener('click', () => {
+        achievements.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+});
+    </script>
+</html>

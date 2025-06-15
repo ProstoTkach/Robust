@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+            background-color: #e8f1fe;
+            color: #011844;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 26.6px;
+            color: black;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            text-decoration: none;
+            color: #011844;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Main layout */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 0 0 300px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            z-index: 1;
+            height: min-content;
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
+            font-size: 23px;
+            line-height: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .menu {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .menu-item {
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .menu-item.active {
+            color: #ffffff;
+        }
+        .menu-item.active::before {
+            background-color: #011844;
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%; /* Смещаем на 50% вправо */
+            width: calc(100% + 60px); /* На всю ширину viewport */
+            transform: translateX(-50%); /* Центрируем */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .menu-item.inactive {
+            color: #576a8f;
+            cursor: pointer;
+        }
+        
+        .menu-item.disabled {
+            color: #cacfd8;
+        }
+        
+        /* Content area */
+        .content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 1000px;
+}
+
+.exercise-header {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.exercise-title {
+    font-family: "Roboto Slab", sans-serif;
+    font-weight: 600;
+    color: #011844;
+    font-size: 23px;
+}
+
+.exercise-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto Slab", sans-serif;
+    font-weight: 800;
+    color: #00a209;
+    font-size: 23px;
+}
+
+.exercise-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #00a209;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exercise-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+
+.exercise-arrow {
+    width: 19px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.exercise-content {
+    margin-top: 20px;
+    display: none;
+}
+
+.exercise-card:not(.collapsed) .exercise-content {
+    display: block;
+}
+
+.exercise-subtitle {
+    font-family: "Roboto Slab", sans-serif;
+    font-weight: 600;
+    color: #011844;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.exercise-description {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #576a8f;
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 30px;
+}
+
+.matching-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Два равных столбца */
+    gap: 15px; /* Расстояние между столбцами */
+    margin-bottom: 30px;
+}
+
+.words-column, .definitions-column {
+    display: grid;
+    grid-template-rows: auto; /* Автоматическая высота строк */
+    gap: 15px; /* Расстояние между элементами */
+    align-items: center; /* Выравнивание по вертикали */
+}
+
+.matching-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Два столбца */
+    gap: 10px; 
+    margin-bottom: 30px;
+}
+
+.table-header {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: #011844;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.word-item, .definition-select {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    min-height: 50px; 
+}
+
+.definition-dropdown {
+    width: 100%;
+    padding: 8px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.column-title {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: #011844;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.word-item {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #576a8f;
+    font-size: 20px;
+    border-bottom: 1px solid #e8f1fe;
+}
+
+.definition-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #576a8f;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    cursor: move;
+}
+
+.definition-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #576a8f;
+    font-size: 20px;
+}
+
+.definition-arrow {
+    width: 15px;
+    height: 11px;
+}
+
+.evaluate-btn, .complete-test-btn {
+    background-color: #ff8b00;
+    border-radius: 10px;
+    border: none;
+    color: #011844;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 12px 25px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.complete-test-btn {
+    background-color: #cbd6e8;
+    margin-top: 20px;
+    align-self: center;
+    padding: 15px 30px;
+    border-radius: 15px;
+}
+.complete-test-btn:hover {
+    background-color: #b3bdca;
+}
+
+@media (max-width: 768px) {
+    .matching-container {
+        flex-direction: column;
+    }
+    
+    .exercise-header {
+        padding: 15px;
+    }
+    
+    .exercise-title, .exercise-score {
+        font-size: 18px;
+    }
+    
+    .exercise-subtitle, .exercise-description,
+    .word-item, .definition-text {
+        font-size: 16px;
+    }
+    
+    .evaluate-btn, .complete-test-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+.exercise-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 35px;
+}
+
+.exercise-content {
+    display: none;
+    padding: 0 35px 35px;
+}
+
+.exercise-card.active .exercise-content {
+    display: block;
+}
+
+.exercise-card.active .exercise-arrow {
+    transform: rotate(180deg);
+}
+
+
+.definition-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #576a8f;
+    border-radius: 5px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #576a8f;
+    background-color: white;
+}
+
+.definition-dropdown:disabled {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.correct-answer {
+    background-color: #e6f7e6;
+    border-color: #00a209;
+}
+
+.incorrect-answer {
+    background-color: #ffebeb;
+    border-color: #d9463b;
+}
+
+.exercise-card.completed {
+    opacity: 0.7;
+}
+
+.exercise-card.completed .exercise-card-header {
+    cursor: default;
+}
+.exercise-content {
+    display: none;
+}
+.exercise-card.active .exercise-content {
+    display: block;
+}
+    
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .sidebar {
+                order: 2;
+                flex: 0 0 auto;
+                width: 100%;
+            }
+            
+            .content {
+                order: 1;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .exercise-text {
+                padding-left: 0;
+            }
+            
+            .drag-words {
+                justify-content: center;
+            }
+            .header{
+                flex-direction: row;
+            }
+            .table-header{
+                font-size: 18px;
+            }
+            .exercise-content{
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="course-main.html" class="back-link">
+                <img src="img/arrow-back.svg" alt="Back" width="12">
+                повернутися
+            </a>
+            <a href="main.html" class="logo">
+                <img src="img/vector-1.svg" alt="ROBUST" width="40">
+                ROBUST
+            </a>
+        </header>
+        
+        <main class="main-content">
+            <aside class="sidebar">
+                <h2 class="sidebar-title">Полосна операція — перший словник</h2>
+                <ul class="menu">
+                    <li class="menu-item inactive">1 lesson</li>
+                    <li class="menu-item inactive">2 lesson</li>
+                    <li class="menu-item active">Test</li>
+                    <li class="menu-item inactive">3 lesson</li>
+                    <li class="menu-item disabled">4 lesson</li>
+                    <li class="menu-item disabled">5 lesson</li>
+                    <li class="menu-item disabled">6 lesson</li>
+                    <li class="menu-item disabled">Test</li>
+                    <li class="menu-item disabled">7 lesson</li>
+                    <li class="menu-item disabled">8 lesson</li>
+                    <li class="menu-item disabled">9 lesson</li>
+                    <li class="menu-item disabled">Final Test</li>
+                </ul>
+            </aside>
+            
+            <div class="content">
+                <div class="exercise-card" id="exercise1">
+                    <div class="exercise-card-header">
+                        <div class="exercise-title">Exercise 1</div>
+                        <img class="exercise-arrow" src="img/arrow-bottom.svg" alt="Expand">
+                    </div>
+                    
+                    <div class="exercise-content">
+                        <h3 class="exercise-subtitle">Matching — Medical Equipment and Usage</h3>
+                        <p class="exercise-description">З'єднайте англійські слова з їхнім призначенням.</p>
+                        
+                        <div class="matching-table">
+
+                            <div class="table-header">Англійське слово</div>
+                            <div class="table-header">Призначення</div>
+
+                            <div class="word-item" data-correct="injection">Syringe</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="listening">Stethoscope</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="temperature">Thermometer</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+                            
+                            <div class="word-item" data-correct="surgery">Scalpel</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        
+                        <button class="evaluate-btn">Оцінити результат</button>
+                    </div>
+                </div>
+            
+                <div class="exercise-card" id="exercise2">
+                    <div class="exercise-card-header">
+                        <div class="exercise-title">Exercise 2</div>
+                        <img class="exercise-arrow" src="img/arrow-bottom.svg" alt="Expand">
+                    </div>
+                    
+                    <div class="exercise-content">
+                        <h3 class="exercise-subtitle">Matching — Medical Equipment and Usage</h3>
+                        <p class="exercise-description">З'єднайте англійські слова з їхнім призначенням.</p>
+                        
+                        <div class="matching-table">
+
+                            <div class="table-header">Англійське слово</div>
+                            <div class="table-header">Призначення</div>
+
+                            <div class="word-item" data-correct="injection">Syringe</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="listening">Stethoscope</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="temperature">Thermometer</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+                            
+                            <div class="word-item" data-correct="surgery">Scalpel</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        
+                        <button class="evaluate-btn">Оцінити результат</button>
+                    </div>
+                </div>
+
+                <div class="exercise-card" id="exercise3">
+                    <div class="exercise-card-header">
+                        <div class="exercise-title">Exercise 3</div>
+                        <img class="exercise-arrow" src="img/arrow-bottom.svg" alt="Expand">
+                    </div>
+                    
+                    <div class="exercise-content">
+                        <h3 class="exercise-subtitle">Matching — Medical Equipment and Usage</h3>
+                        <p class="exercise-description">З'єднайте англійські слова з їхнім призначенням.</p>
+                        
+                        <div class="matching-table">
+
+                            <div class="table-header">Англійське слово</div>
+                            <div class="table-header">Призначення</div>
+
+                            <div class="word-item" data-correct="injection">Syringe</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="listening">Stethoscope</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="temperature">Thermometer</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+                            
+                            <div class="word-item" data-correct="surgery">Scalpel</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        
+                        <button class="evaluate-btn">Оцінити результат</button>
+                    </div>
+                </div>
+
+                <div class="exercise-card" id="exercise4">
+                    <div class="exercise-card-header">
+                        <div class="exercise-title">Exercise 4</div>
+                        <img class="exercise-arrow" src="img/arrow-bottom.svg" alt="Expand">
+                    </div>
+                    
+                    <div class="exercise-content">
+                        <h3 class="exercise-subtitle">Matching — Medical Equipment and Usage</h3>
+                        <p class="exercise-description">З'єднайте англійські слова з їхнім призначенням.</p>
+                        
+                        <div class="matching-table">
+
+                            <div class="table-header">Англійське слово</div>
+                            <div class="table-header">Призначення</div>
+
+                            <div class="word-item" data-correct="injection">Syringe</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="listening">Stethoscope</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                            <div class="word-item" data-correct="temperature">Thermometer</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+                            
+                            <div class="word-item" data-correct="surgery">Scalpel</div>
+                            <div class="definition-select">
+                                <select class="definition-dropdown">
+                                    <option value="">Оберіть відповідь</option>
+                                    <option value="injection">Введення ліків або вакцини</option>
+                                    <option value="listening">Прослуховування серця та легень</option>
+                                    <option value="temperature">Вимірювання температури тіла</option>
+                                    <option value="surgery">Хірургічне розсічення тканин</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        
+                        <button class="evaluate-btn">Оцінити результат</button>
+                    </div>
+                </div>
+            
+                <a href="course-result.html" class="complete-test-btn">Завершити тест</a>
+            </div>
+        </main>
+    </div>
+</body>
+    <script>
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const exerciseCards = document.querySelectorAll('.exercise-card');
+
+    // Инициализация: сворачиваем все exercise-content
+    exerciseCards.forEach(card => {
+        card.classList.add("collapsed");
+    });
+
+    // Обработка раскрытия/сворачивания карточек
+    exerciseCards.forEach(card => {
+        const header = card.querySelector('.exercise-card-header');
+        header.addEventListener('click', function () {
+            // Если карточка завершена — не раскрываем
+            if (card.classList.contains('completed')) return;
+
+            card.classList.toggle('active');
+        });
+
+        // Обработка кнопки оценки внутри каждой карточки
+        const evaluateBtn = card.querySelector('.evaluate-btn');
+        if (evaluateBtn) {
+            evaluateBtn.addEventListener('click', function () {
+                const dropdowns = card.querySelectorAll('.definition-dropdown');
+                const wordItems = card.querySelectorAll('.word-item');
+                let correctAnswers = 0;
+
+                dropdowns.forEach((dropdown, index) => {
+                    const selectedValue = dropdown.value;
+                    const correctValue = wordItems[index].dataset.correct;
+
+                    if (selectedValue === correctValue) {
+                        correctAnswers++;
+                        dropdown.classList.add('correct-answer');
+                    } else {
+                        dropdown.classList.add('incorrect-answer');
+                    }
+
+                    dropdown.disabled = true;
+                });
+
+                const score = Math.round((correctAnswers / dropdowns.length) * 100);
+
+                // Обновляем соответствующий .exercise-score внутри этой карточки
+                const scoreElement = card.querySelector('.exercise-score');
+                if (scoreElement) {
+                    scoreElement.textContent = `${score}%`;
+                } else {
+                    // Создаём элемент оценки, если не существует
+                    const header = card.querySelector('.exercise-card-header');
+                    const scoreDiv = document.createElement('div');
+                    scoreDiv.className = 'exercise-score';
+                    scoreDiv.textContent = `${score}%`;
+                    
+                    // Создаём изображение-иконку в зависимости от оценки
+                    const markImg = document.createElement('img');
+                    markImg.className = 'score-icon';
+
+                    markImg.src = 'img/checkmark.svg'; // путь к картинке с галочкой
+                    markImg.alt = 'Passed';
+
+                    markImg.style.width = '32px';
+                    markImg.style.marginLeft = '12px';
+
+                    scoreDiv.appendChild(markImg);
+
+                    const arrow = card.querySelector('.exercise-arrow');
+                    header.removeChild(arrow)
+
+                    header.appendChild(scoreDiv);
+                }
+
+                card.classList.add('completed');
+                card.classList.remove('active');
+                this.disabled = true;
+            });
+        }
+    });
+});
+
+</script>
+
+</html>

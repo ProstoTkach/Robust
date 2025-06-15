@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+        * {
+          -webkit-font-smoothing: antialiased;
+          box-sizing: border-box;
+        }
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          font-family: 'Inter', Helvetica, sans-serif;
+        }
+        /* a blue color as a generic focus style */
+        button:focus-visible {
+          outline: 2px solid #4a90e2 !important;
+          outline: -webkit-focus-ring-color auto 5px !important;
+        }a {
+          text-decoration: none;
+        }.screen {
+          background-color: #e8f1fe;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+        }.screen .div {
+          background-color: #e8f1fe;
+          width: 100%;
+          max-width: 1440px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }.screen .group {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 40px 0;
+          position: relative;
+        }.screen .text-wrapper {
+          font-family: "Inter-Bold", Helvetica;
+          font-weight: 700;
+          color: #011844;
+          font-size: clamp(28px, 5vw, 35px);
+          letter-spacing: 0;
+          line-height: normal;
+          margin-left: 15px;
+        }.screen .vector {
+          width: 53px;
+          height: 37px;
+        }.screen .overlap {
+          width: 100%;
+          max-width: 626px;
+          padding: 30px 20px;
+          margin: 20px 0;
+          background-color: #ffffff;
+          z-index: 2;
+          border-radius: 20px;
+          position: relative;
+        }.screen .text-wrapper-2 {
+          font-family: "Roboto Slab-SemiBold", Helvetica;
+          font-weight: 600;
+          color: #011844;
+          font-size: clamp(28px, 5vw, 40px);
+          text-align: center;
+          line-height: 1.1;
+          margin: 0 auto 30px;
+          display: block;
+          letter-spacing: 0;
+        }.social-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          margin: 30px 0;
+        }.social-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          max-width: 243px;
+          height: 52px;
+          background-color: #e8f1fe;
+          border-radius: 10px;
+          position: relative;
+          padding: 0 20px;
+          font-family: "Inter-Medium", Helvetica;
+          font-weight: 500;
+          color: #576a8f;
+          font-size: 15px;
+          letter-spacing: 0;
+          border: none;
+          cursor: pointer;
+        }.social-button img {
+          margin-right: 10px;
+        }.register-button {
+          width: 100%;
+          max-width: 499px;
+          height: 70px;
+          background-color: #ff8b00;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 10px auto 0 auto;
+          font-family: "Inter-Bold", Helvetica;
+          font-weight: 700;
+          color: #011844;
+          font-size: 20px;
+          border: none;
+          cursor: pointer;
+        }
+    .register-button:hover {
+      background-color: #ffc072;
+      }.input-group {
+          width: 100%;
+          max-width: 499px;
+          height: 70px;
+          margin: 15px auto;
+          position: relative;
+        }.input-field {
+          width: 100%;
+          height: 100%;
+          background-color: #e8f1fe;
+          border-radius: 10px;
+          border: none;
+          padding: 0 32px;
+          font-family: "Inter-Regular", Helvetica;
+          font-weight: 400;
+          color: #576a8f;
+          font-size: 20px;
+        }.input-field::placeholder {
+          color: #576a8f;
+        }.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 70px;
+  background-color: #e8f1fe;
+  border-radius: 10px;
+  border: none;
+  padding: 0 32px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #576a8f;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}.checkbox-container {
+          display: flex;
+          margin: 20px 0 50px 0;
+          color: #576a8f;
+          font-size: 16px;
+          font-family: "Inter-Regular", Helvetica;
+          align-items: center;
+          justify-content: center;
+        }.custom-checkbox {
+          width: 18px;
+          height: 18px;
+          border-radius: 4px;
+          border: 1.5px solid #0e68a6;
+          margin-right: 10px;
+        }.custom-checkbox.checked {
+          background-color: #0e68a6;
+        }.divider {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 20px 0;
+          color: #000000;
+          font-size: 20px;
+          font-family: "Inter-Medium", Helvetica;
+          max-width: 499px;
+          margin: 0 auto;
+        }.divider-line {
+          flex-grow: 1;
+          height: 1px;
+          background-color: #000;
+          margin: 0 10px;
+        }.decoration-images {
+          display: none; /* Скрываем декоративные изображения на мобильных */
+        }@media (min-width: 768px) {
+          .social-buttons {
+            flex-wrap: nowrap;
+          }
+          
+          .decoration-images {
+            display: block;
+            position: absolute;
+          }
+          
+          .element {
+            width: 209px;
+            height: 131px;
+            top: 288px;
+            left: 5%;
+          }
+          
+          .element-e-d-f {
+            width: 142px;
+            height: 208px;
+            top: 639px;
+            right: 5%;
+          }
+          
+          .subtract {
+            width: 159px;
+            height: 277px;
+            top: 216px;
+            right: 5%;
+          }
+        }@media (max-width: 480px) {
+          .input-field {
+            font-size: 16px;
+            padding: 0 20px;
+          }
+          
+          .register-button {
+            height: 60px;
+            font-size: 18px;
+          }
+          
+          .social-button {
+            height: 45px;
+            font-size: 14px;
+          }
+        }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="div">
+        <div class="group">
+          <img class="vector" src="img/vector-1.svg" />
+          <div class="text-wrapper">ROBUST</div>
+        </div>
+        <div class="overlap">
+          <div class="text-wrapper-2">Вхід</div>
+          
+          <div class="input-group">
+            <input type="email" class="input-field" placeholder="Email" />
+          </div>
+          
+          <div class="input-group">
+            <input type="password" class="input-field" placeholder="Пароль" />
+          </div>
+          <div style="display: flex; max-width: 499px; margin: auto;">
+
+          <a href="main.html" class="register-button">Увійти</a>
+          </div>
+          <div class="checkbox-container">
+            <span>Забули пароль?</span>
+          </div>
+
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span>або</span>
+            <div class="divider-line"></div>
+          </div>
+          
+          <div class="social-buttons">
+            <button class="social-button">
+              <img src="img/group-1842.png" />
+              <span>Увійти через Google</span>
+            </button>
+            <button class="social-button">
+              <img src="img/f-1.svg" />
+              <span>Увійти через Facebook</span>
+            </button>
+          </div>
+        </div>
+        
+        <img class="element decoration-images" src="img/hat.png" />
+        <img class="element-e-d-f decoration-images" src="img/book.png" />
+        <img class="subtract decoration-images" src="img/subtract.png" />
+      </div>
+    </div>
+  </body>
+</html>

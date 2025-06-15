@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Общие стили */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+            background-color: #e8f1fe;
+        }
+
+        /* Основные контейнеры */
+        .screen {
+            display: flex;
+            min-height: 100vh;
+        }
+a {
+    text-decoration: none;
+}
+        .main-content {
+            flex: 1;
+            padding: 50px;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 100%;
+            max-width: 383px;
+            background-color: #011844;
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }
+
+        .logo-text {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-left: 15px;
+        }
+
+        .profile {
+            margin-bottom: 40px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 1.7rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-title {
+            font-weight: 500;
+            color: #ff8b00;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profession-select {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.profile-title {
+    font-weight: 500;
+    color: #ff8b00;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.profile-title:hover {
+    text-decoration: underline;
+}
+.dropdown-icon {
+    margin-left: 10px;
+    width: 24px;
+    transition: transform 0.3s;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #011844;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 100;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #002b7c;
+    color: #ff8b00;
+}
+
+/* Анимация иконки при открытии */
+.profession-select.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.profession-select.active .dropdown-menu {
+    display: block;
+}
+        /* Уровень и кнопка теста */
+        .level {
+            margin: 30px 0;
+        }
+
+        .level-text {
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .test-button {
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: black;
+        }
+        /* Меню */
+        .menu {
+            margin-top: 90px;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .exit-settings {
+            display: flex;
+            align-items: center;
+            margin-top: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .exit-settings img {
+            margin-right: 10px;
+            width: 17px;
+        }
+
+        /* Основной контент */
+        .section-title {
+            font-weight: 600;
+            font-size: 1.7rem;
+            color: #011844;
+            margin-bottom: 30px;
+        }
+
+        /* Достижения */
+        .achievements-container {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .achievements-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            width: calc(100% + 100px);
+            left: -50px;
+        }
+
+        .achievements {
+            padding: 0 50px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 50px;
+        }
+
+        .achievements::-webkit-scrollbar {
+            display: none;
+        }
+
+        .achievements-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .arrow-btn {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid #576a8f;
+            border-radius: 4px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .arrow-btn:hover {
+            border-color: #ff8b00;
+        }
+
+        .arrow-btn img {
+            width: 16px;
+            height: 12px;
+        }
+
+        .achievement-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            height: 250px;
+            width: 300px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .achievement-card img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 20px;
+        }
+
+        .achievement-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #011844;
+        }
+
+        /* Цели */
+        .goal {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .goal-checkbox {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            min-width: 25px;
+            height: 25px;
+            border: 3px solid #576a8f;
+            border-radius: 5px;
+            margin-right: 15px;
+            cursor: pointer;
+            position: relative;
+            outline: none;
+        }
+
+        .goal-checkbox:checked {
+            border-color: #ff8b00;
+        }
+
+        .goal-checkbox:checked::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 10px;
+            border: solid #ff8b00;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        .goal-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #576a8f;
+            cursor: pointer;
+        }
+
+        .add-goal {
+            display: flex;
+            align-items: center;
+            color: #576a8f;
+            font-size: 1rem;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+        .underline-hov:hover {
+            text-decoration: underline;
+        }
+        .add-goal img {
+            margin-right: 10px;
+            width: 15px;
+        }
+
+        /* Сертификаты */
+        .progress-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .progress-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        .progress {
+            width: 40%;
+
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .progress-title {
+            width: 50%;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #011844;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar-container {
+            background: #e8f1fe;
+            border-radius: 5px;
+            height: 16px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            background: #ff8b00;
+            border-radius: 5px;
+            height: 100%;
+        }
+
+        .progress-percent {
+            font-weight: 500;
+            color: #576a8f;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Кнопки действий */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-button {
+            border-radius: 10px;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .retake-course {
+            border: 1px solid #011844;
+            color: #011844;
+        }
+
+        .retake-course:hover {
+            background: rgb(196, 196, 196);
+        }
+        .download-certificate {
+            background: #ff8b00;
+            color: #011844;
+        }
+        .download-certificate-hov:hover {
+            background: #ffbe6e;
+        }
+
+        /* Медиазапросы для адаптивности */
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 20px;
+                width: 100vw;
+            }
+
+            .sidebar {
+                max-width: 330px;
+                padding: 40px 20px 40px 20px;
+            }
+
+            .achievements-wrapper {
+                width: calc(100% + 40px);
+                left: -20px;
+            }
+
+            .achievements {
+                padding: 0 20px;
+            }
+
+            .settings {
+                margin-top: 0;
+            }
+
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .screen {
+                flex-direction: column;
+            }
+
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .sidebar {
+                max-width: 100%;
+                padding: 20px 30px;
+            }
+
+            .profile-img {
+                margin: 0 auto 15px;
+            }
+
+            .profile-info {
+                text-align: center;
+            }
+
+            .profile-title {
+                justify-content: center;
+            }
+
+            .level {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .level-text {
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+
+            .test-button {
+                width: 100%;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+                margin-top: 0;
+            }
+
+            .achievements {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .arrow {
+                display: none;
+            }
+
+            .achievements {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen">
+        <!-- Боковая панель -->
+        <div class="sidebar">
+            <a href="main.html" class="logo">
+                <img src="img/vector-1.svg" alt="ROBUST Logo" />
+                <div class="logo-text">ROBUST</div>
+            </a>
+            <div class="profile">
+                <img class="profile-img" src="img/image.png" alt="Profile Photo" />
+                <div class="profile-info">
+                    <div class="profile-name">Вікторія Літвінова</div>
+                    <div class="profession-select">
+                        <div class="profile-title dropdown-toggle">
+                            лікар-терапевт
+                            <img src="img/plus-orange.svg" class="dropdown-icon" alt="Dropdown" />
+                        </div>
+                        
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">лікар-терапевт</div>
+                            <div class="dropdown-item">лікар-кардіолог</div>
+                            <div class="dropdown-item">лікар-невролог</div>
+                            <div class="dropdown-item">лікар-педіатр</div>
+                            <div class="dropdown-item">лікар-хірург</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="level">
+                <div class="level-text">Ваш рівень: B1</div>
+                <div class="test-button">Пройти тест на рівень</div>
+            </div>
+            <div class="menu">
+                <div class="menu-item underline-hov">Змінити пароль</div>
+                <div class="menu-item underline-hov">Налаштування повідомлень</div>
+                <div class="menu-item underline-hov">Налаштування рекомендацій</div>
+                <div class="menu-item underline-hov">Вийти з акаунту</div>
+            </div><a href="main.html" class="exit-settings" style="color: white; text-decoration: none;">
+                <svg style="margin-right: 10px;" width="13" height="13" viewBox="0 0 13 13" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.5 6.49998H1M1 6.49998L6.22727 1.27271M1 6.49998L6.22727 11.7273" stroke="white"
+                        stroke-width="1.39394" />
+                </svg>
+                <div class="underline-hov">вийти з режиму налаштування</div>
+            </a>
+        </div>
+        <!-- Основное содержимое -->
+        <div class="main-content">
+            <div class="achievements-container">
+                <div style="display: flex; justify-content: space-between;">
+                    <h1 class="section-title">Панель досягнень</h1>
+                    <div class="achievements-controls">
+                        <button class="arrow-btn left-arrow">
+                            <img src="img/arrow-left.svg" alt="Left arrow">
+                        </button>
+                        <button class="arrow-btn right-arrow">
+                            <img src="img/arrow-right-2.svg" alt="Right arrow">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="achievements-wrapper">
+                    <div class="achievements">
+                        <div class="achievement-card">
+                            <img src="img/star-3.svg" alt="Achievement" />
+                            <div class="achievement-text">3 дні поспіль</div>
+                        </div>
+                        <div class="achievement-card">
+                            <img src="img/star-3.svg" alt="Achievement" />
+                            <div class="achievement-text">Вивчено<br />20 нових слів</div>
+                        </div>
+                        <div class="achievement-card">
+                            <img src="img/star-3.svg" alt="Achievement" />
+                            <div class="achievement-text">Завершено<br />1 курс</div>
+                        </div>
+                        <div class="achievement-card">
+                            <img src="img/star-3.svg" alt="Achievement" />
+                            <div class="achievement-text">Завершено<br />3 курси</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="section-title">Цілі на тиждень</h1>
+            <div class="goal">
+                <input type="checkbox" id="goal1" class="goal-checkbox">
+                <label for="goal1" class="goal-text">Завершити 3 уроки курсу "Полосна операція — перший словник"</label>
+                <img src="img/delete.svg" alt="Edit" style="margin-left: 10px;" />
+
+            </div>
+
+            <div class="goal">
+                <input type="checkbox" id="goal2" class="goal-checkbox">
+                <label for="goal2" class="goal-text">Вивчити 10 нових слів</label>
+                <img src="img/delete.svg" alt="Edit" style="margin-left: 10px;" />
+
+            </div>
+            <div class="add-goal">
+                <img src="img/plus.svg" alt="Add Icon" />
+                <div class="underline-hov">Додати мету</div>
+            </div>
+            <h1 class="section-title">Сертифікати</h1>
+            <div class="certificates">
+                <div class="progress-container">
+                    <img class="progress-icon" src="img/certificate.svg" alt="Course Icon" />
+                    <div class="progress-text">
+                        <div class="progress-title">Загальна англійська - побудова речень</div>
+                        <div class="progress">
+                            <div class="progress-percent">90 / 100</div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="action-buttons">
+                    <div class="action-button retake-course">Перепройти курс</div>
+                    <a href="course-result.html" class="action-button download-certificate download-certificate-hov">Завантажити сертифікат</a>
+
+                </div>
+                <div class="progress-container">
+                    <img class="progress-icon" src="img/certificate-n.svg" alt="Course Icon" />
+                    <div class="progress-text">
+                        <div class="progress-title">Полосна операція — перший словник</div>
+                        <div class="progress">
+
+                            <div class="progress-percent">23 / 100</div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 23%; background-color: #cbd6e8;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <div class="action-button retake-course">Перепройти курс</div>
+                <div class="action-button download-certificate" style="background-color: #576a8f4f; cursor: default;">
+                    <div>Завантажити сертифікат</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const achievements = document.querySelector('.achievements');
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+        const scrollAmount = 320; // Ширина карточки + отступ
+
+        leftArrow.addEventListener('click', () => {
+            achievements.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+
+        rightArrow.addEventListener('click', () => {
+            achievements.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    });
+
+    document.querySelector('.dropdown-toggle').addEventListener('click', function() {
+    this.parentElement.classList.toggle('active');
+});
+
+document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function() {
+        document.querySelector('.profile-title').textContent = this.textContent;
+        document.querySelector('.profile-title').appendChild(document.querySelector('.dropdown-icon'));
+        document.querySelector('.profession-select').classList.remove('active');
+    });
+});
+</script>
+
+</html>

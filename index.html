@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robust - Англійська для професіоналів</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" />
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }a{
+      text-decoration: none;
+    }
+    html{
+      overflow-x: hidden;
+      width: 100vw;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #e8f1fe;
+      color: #011844;
+      line-height: 1.6;
+      width: 100vw;
+    }.container-main {
+      width: 100%;
+      padding: 20px 5vw 0 5vw;
+    }.container {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }/* Header styles */
+    header {
+            padding: 20px 0;
+        }
+        .header-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            position: relative;
+            column-gap: 30px;
+            row-gap: 10px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 11;
+        }
+        .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 35px;
+            color: #011844;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+            color: #011844;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #0e68a6;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .login-btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #011844;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .signup-btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: #011844;
+            background-color: #ff8b00;
+            border: none;
+            border-radius: 10px;
+            padding: 13px 33px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .signup-btn:hover {
+            background-color: #e67e00;
+        }
+        /* Бургер меню */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 11;
+        }
+        .burger-line {
+            width: 100%;
+            height: 3px;
+            background-color: #011844;
+            transition: all 0.3s;
+        }
+        /* Анимация бургера */
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+/* Hero section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+      padding: 20px 0;
+    }.hero-content {
+      flex: 1;
+      min-width: 300px;
+    }.hero-title {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 600;
+      font-size: 55px;
+      line-height: 1.1;
+      margin-bottom: 30px;
+    }.hero-title span {
+      color: #0e68a6;
+    }.hero-subtitle {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }.hero-image {
+      flex: 1;
+      min-width: 300px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }/* Features section */
+    .features {
+      padding: 80px 0;
+    }.section-title {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 700;
+      font-size: 35px;
+      margin-bottom: 50px;
+    }.features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }.feature-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0px 0px 30px rgba(108, 124, 140, 0.05);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }.feature-title {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 600;
+      font-size: 30px;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }.feature-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #576a8f;
+    }/* Benefits section */
+    .benefits {
+      padding: 10px 0 ;
+    }.benefits-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+    }.benefit-item {
+      display: flex;
+      padding: 5px 10px 5px 20px;
+      border-radius: 15px;
+      background-color: white;
+    }.benefit-icon {
+      font-size: 55px;
+      margin-right:15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }.benefit-title {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 600;
+      font-size: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }.benefit-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #576a8f;
+    }/* Reviews section */
+    .reviews {
+      color: white;
+      padding: 40px 0;
+      position: relative;
+    }.reviews::before {
+    background-color: #011844;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Смещаем на 50% вправо */
+    width: 100vw; /* На всю ширину viewport */
+    transform: translateX(-50%); /* Центрируем */
+    background-color: #011844;
+    background-image: url('img/english-books-stacks-table-working-space-2.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    }.reviews .section-title {
+      color: white;
+      position: relative;
+      z-index: 1;
+    }.reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }.review-card {
+      border: 3px solid #ff8b00;
+      border-radius: 20px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }.review-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 1.2;
+      margin-bottom: 30px;
+    }.review-author {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 25px;
+    }/* CTA section */
+    .cta {
+      padding: 40px 0;
+    }.cta-container {
+      max-width: 800px;
+    }.cta-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #576a8f;
+      margin-bottom: 40px;
+    }.cta-btn {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 29px;
+      color: #011844;
+      background-color: #ff8b00;
+      border: none;
+      border-radius: 15px;
+      padding: 20px 76px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-bottom: 100px;
+      text-decoration: none; /* Отключаем подчёркивание */
+      display: inline-block;
+    }.cta-btn:hover {
+      background-color: #e67e00;
+    }/* Footer */
+    footer {
+      color: white;
+      padding: 60px 0 30px;
+      position: relative;
+    }footer::before {
+      background-color: #011844;
+      content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Смещаем на 50% вправо */
+    width: 100vw; /* На всю ширину viewport */
+    transform: translateX(-50%); /* Центрируем */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    }.footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }.footer-heading {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #ff8b00;
+    }.footer-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }.social-links {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }.social-icon {
+      width: 33px;
+      height: 31px;
+      cursor: pointer;
+    }.social-icon:hover {
+      background-color: #ff8b00;
+      padding: 2px;
+      border-radius: 100%;
+      border-width: medium;
+    }.copyright {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }/* Interactive elements section */
+    .interactive-elements {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+      position: relative;
+      z-index: 1;
+    }.half-container {
+      position: relative;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }.elements-grid {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow: hidden;  
+      z-index: 2;
+      align-items: flex-start;
+      justify-content: center;
+    }.half-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: calc(50vw); 
+      z-index: -1;
+    }.left::before {
+      right: 0;
+      background: url('img/2.jpg') center/cover;
+    }.right::before {
+      left: 0;
+      background-color: #011844;
+    }.element-btn {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #011844;
+      background-color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 28px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }.element-btn:hover {
+      background-color: #f0f0f0;
+    }.highlight-box {
+      background-color: #011844;
+      padding: 40px 0 40px 60px ;
+    }.highlight-text {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 400;
+      font-size: 35px;
+      line-height: 1.2;
+      color: #e8f1fe;
+    }.highlight-text span {
+      color: #ff8b00;
+    }.action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }.primary-btn {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #011844;
+      background-color: #ff8b00;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 33px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }.primary-btn:hover {
+      background-color: #e67e00;
+    }.secondary-btn {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #011844;
+      background-color: #e8f1fe;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 33px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }.secondary-btn:hover {
+      background-color: #d0e0f0;
+    }.gap-20{
+      gap: 40px;
+    }
+      /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .hero-title {
+        font-size: 45px;
+      }
+      
+      .hero-subtitle {
+        font-size: 25px;
+      }
+      
+      .feature-title, .benefit-title {
+        font-size: 25px;
+      }
+      
+      .feature-desc, .benefit-desc {
+        font-size: 18px;
+      }
+    }@media (max-width: 768px) {
+      .header-container {
+        gap: 20px;
+      }
+      
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .auth-buttons {
+        order: 2;
+      }
+      
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .hero-content {
+        text-align: center;
+      }
+      
+      .hero-title {
+        font-size: 38px;
+      }
+      
+      .hero-subtitle {
+        font-size: 22px;
+      }
+      
+      .section-title {
+        font-size: 30px;
+      }
+      
+      .feature-card {
+        transform: none;
+        height: auto;
+      }
+      
+      .highlight-text {
+        font-size: 22px;
+      }
+
+
+    }@media (max-width: 480px) {
+      .hero-title {
+        font-size: 32px;
+      }
+      
+      .hero-subtitle {
+        font-size: 20px;
+        margin: 0;
+      }
+      
+      .section-title {
+        font-size: 26px;
+      }
+      
+      .feature-title, .benefit-title {
+        font-size: 22px;
+      }
+      
+      .feature-desc, .benefit-desc {
+        font-size: 16px;
+      }
+      
+      .review-text, .review-author {
+        font-size: 20px;
+      }
+      
+      .cta-btn {
+        font-size: 24px;
+        padding: 15px 40px;
+      }
+      
+      .primary-btn, .secondary-btn {
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+      
+      .footer-text {
+        font-size: 18px;
+      }
+      .half-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: calc(50vw - 10px); 
+      z-index: -1;
+    }.left::before {
+      right: 5px;
+    }.right::before {
+      left: 10px;
+    }
+      footer::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Смещаем на 50% вправо */
+    width: calc(100vw); /* На всю ширину viewport */
+    transform: translateX(-50%); /* Центрируем */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    }
+      .reviews::before {
+    
+    left: 50%; /* Смещаем на 50% вправо */
+    width: calc(100vw); /* На всю ширину viewport */
+    transform: translateX(-50%); /* Центрируем */
+    z-index: -1;
+    }
+
+    .highlight-box{
+      padding-left: 15px;
+    }
+    .element-btn{
+      font-size: 18px;
+      width: 170px;
+    }
+    #how-it-works.features{
+      padding: 10px 0 10px 0 ;
+
+    }
+    .features-grid{
+      margin-bottom: 10px;
+    }
+    .section-title{
+      margin-bottom: 10px;
+    }
+    .benefit-item{
+      width: calc(100vw - 40px);
+    }
+    .benefits-container{
+      gap: 12px;
+    }
+    .benefit-title{
+      font-size: 18px;
+
+    }
+    .benefit-icon{
+      font-size: 34px;
+
+    }
+    .gap-20{
+      gap: 10px;
+      flex-direction: column;
+    }
+    .cta-btn{
+      margin-bottom: 10px;
+    }
+    .burger-menu {
+                display: flex;
+            }
+            .nav-links, .auth-buttons {
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                transform: translateY(-400px);
+                transition: transform 0.5s ease;
+                overflow: hidden;
+            }
+            .nav-links.active, .auth-buttons.active {
+                transform: translateY(0);
+            }
+            .nav-links{
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+            }
+            .auth-buttons {
+                top: 176px;
+                padding: 20px 0 20px 0;
+                border-radius: 0 0 15px 15px;
+            }
+            .header-container {
+                flex-wrap: nowrap;
+            }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-main">
+    <header>
+      <div class="header-container">
+          <div class="logo">
+              <svg width="53" height="37" viewBox="0 0 53 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.7184 13.9316L1 7.08544V29.9058L18.7184 35.9913L33.6018 29.9058L41.3979 35.9913L52.0289 13.9316L33.6018 1L18.7184 13.9316Z" fill="#FF8B00" stroke="#011844" stroke-width="1.45797"/>              
+              </svg>
+              <span class="logo-text">ROBUST</span>
+          </div>
+          
+          <div class="burger-menu">
+              <div class="burger-line"></div>
+              <div class="burger-line"></div>
+              <div class="burger-line"></div>
+          </div>
+          
+          <ul class="nav-links">
+              <li><a href="#about">Про платформу</a></li>
+              <li><a href="#how-it-works">Як це працює</a></li>
+              <li><a href="#reviews">Відгуки</a></li>
+          </ul>
+          
+          <div class="auth-buttons">
+              <a href="login.html" class="login-btn">Увійти</a>
+              <a href="1.html" class="signup-btn">Зареєструватися</a>
+          </div>
+      </div>
+  </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title"><span>Robust</span> — англійська для тих, хто тримає світ</h1>
+        <p class="hero-subtitle">Вивчайте мову з платформою, що адаптована під ваш темп, виклики та ритм життя.</p>
+      </div>
+      <img src="img/1.png" alt="Robust платформа" class="hero-image" />
+    </section>
+    <section class="interactive-elements" id="about">
+      <div class="half-container left">
+        <div class="elements-grid">
+          <button class="element-btn">Інтерактивні уроки</button>
+          <button class="element-btn">Голосове тренування</button>
+          <button class="element-btn">Сертифікати</button>
+          <button class="element-btn">Професійна лексика</button>
+        </div>
+        <div class="background-image"></div>
+      </div> 
+      <div class="half-container right">
+        <div class="highlight-box">
+          <p class="highlight-text">Створіть свій шлях до<br>впевненості в англійській,<br>не змінюючи життя — <br><span>лише 5 хвилин на день</span>.</p>
+          <div class="action-buttons">
+            <button class="primary-btn">Почати навчання</button>
+            <button class="secondary-btn">Познайомитися з платформою</button>
+          </div>
+        </div>
+      </div> 
+    </section>
+    <section class="features" id="how-it-works">
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3 class="feature-title">✅ Обирайте курс, що підходить вам</h3>
+          <p class="feature-desc">Профільна англійська для лікарів, військових, юристів, ІТ-спеціалістів, інженерів, архітекторів а також базова англійська.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3 class="feature-title">⏱️ Навчайтеся у зручний час</h3>
+          <p class="feature-desc">Короткі модулі до 5-15 хвилин. Платформа пам'ятає, де ви зупинилися.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3 class="feature-title">🎓 Отримуйте сертифікат та реальний прогрес</h3>
+          <p class="feature-desc">Трекінг прогресу, голосова практика, повторення складного — усе для результату.</p>
+        </div>
+      </div>
+      
+      <div class="benefits">  
+        <h2 class="section-title">Особливості платформи</h2>
+
+        <div class="benefits-container">
+          <div class="benefit-item">
+            <div class="benefit-icon">📱</div>
+            <h3 class="benefit-title">Мобільна та офлайн-адаптована</h3>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-icon">🛡️</div>
+            <h3 class="benefit-title">Безпека даних і авторизація</h3>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-icon">🧠</div>
+            <h3 class="benefit-title">Алгоритми адаптації до навантаження</h3>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-icon">🎖️</div>
+            <h3 class="benefit-title">Професійна термінологія</h3>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-icon">🔊</div>
+            <h3 class="benefit-title">Голосові тренування</h3>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-icon">💬</div>
+            <h3 class="benefit-title">Підтримка користувача 24/7</h3>
+          </div>
+        </div>
+      </div>
+    </section>  
+    <section class="reviews" id="reviews">
+      <h2 class="section-title">Відгуки</h2>
+      
+      <div class="reviews-grid">
+        <div class="review-card">
+          <p class="review-text">Я пройшла кілька модулів між операціями. Це — єдина платформа, яка справді розуміє мій графік.</p>
+          <p class="review-author">Катерина, лікарка з Харкова</p>
+        </div>
+        
+        <div class="review-card">
+          <p class="review-text">Займався з бліндажа — навіть офлайн усе працювало. Дуже вдячний - вже використовую вивчене в розмовах з побратитами з інтернаціонального легіону.</p>
+          <p class="review-author">Владислав, військовослужбовець</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="cta-container">
+        <p class="cta-text">Платформа сертифікована за європейськими стандартами безпеки
+            <br />Зроблено в Україні. Вся інформація — під вашим контролем</p>
+        <a href="1.html" class="cta-btn">Розпочнемо?</a>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div>
+            <h3 class="footer-heading">Центральний офіс:</h3>
+            <p class="footer-text">вул. Академіка Павлова, 271, м. Харків, 61054, Україна</p>
+            <br>
+            <h3 class="footer-heading">Телефон:</h3>
+            <p class="footer-text">+38 (050) 123-45-67<br />+38 (067) 987-65-43</p>
+        </div>
+          
+          <div>
+            <div style="display: flex;" class="gap-20">
+                <div>
+                    <h3 class="footer-heading">Підтримка:</h3>
+                    <p class="footer-text">support@robust.ua</p>
+                </div>
+                <div>
+                    <h3 class="footer-heading">Партнерство:</h3>
+                    <p class="footer-text">partnerships@robust.ua</p>
+                </div>
+            </div>
+            
+            <div>
+                <div class="social-links">
+                  <a ><img src="img/inst.svg" alt="Instagram" class="social-icon" /></a>
+                  <a ><img src="img/tg.svg" alt="Telegram" class="social-icon" /></a>
+                  <a ><img src="img/fb.svg" alt="Facebook" class="social-icon" /></a>
+                  <a ><img src="img/link.svg" alt="LinkedIn" class="social-icon" /></a>
+                </div>
+    
+                <p class="copyright">Copyright ©2025 Robust</p>
+              </div>
+          </div>
+          
+          
+        </div>
+        
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const authButtons = document.querySelector('.auth-buttons');
+        
+        burgerMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            authButtons.classList.toggle('active');
+            
+            if (this.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        document.querySelectorAll('.nav-links a, .auth-buttons a').forEach(link => {
+            link.addEventListener('click', function() {
+                burgerMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+                authButtons.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    });
+</script>
+</body>
+</html>

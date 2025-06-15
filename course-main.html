@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Inter', 'Roboto Slab', Helvetica, sans-serif;
+            background-color: #e8f1fe;
+            color: #011844;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 26.6px;
+            color: black;
+            transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);    
+    }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            text-decoration: none;
+            color: #011844;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        /* Main layout */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 0 0 300px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            z-index: 1;
+            height: min-content;
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
+            font-size: 23px;
+            line-height: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .menu {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .menu-item {
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .menu-item.active {
+            color: #ffffff;
+        }
+        .menu-item.active::before {
+            background-color: #011844;
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%; /* Смещаем на 50% вправо */
+            width: calc(100% + 60px); /* На всю ширину viewport */
+            transform: translateX(-50%); /* Центрируем */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .menu-item.inactive {
+            color: #576a8f;
+            cursor: pointer;
+        }
+        
+        .menu-item.disabled {
+            color: #cacfd8;
+        }
+        
+        /* Content area */
+        .content {
+            flex: 1;
+            margin-bottom: 70px;
+        }
+        
+        .lesson-image {
+            width: 100%;
+            height: auto;
+            max-height: 506px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            margin-top: 50px;
+            font-weight: 600;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .lesson-title {
+            font-weight: 600;
+            font-size: 22px;
+            margin: 20px 0;
+        }
+        
+        .text {
+            font-weight: 500;
+            font-size: 20px;
+            color: #576a8f;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .example {
+            font-weight: 500;
+            font-size: 20px;
+            color: #576a8f;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        .example strong {
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        /* Exercise */
+        .exercise {
+            margin: 30px 0;
+        }
+        
+        .exercise-title {
+            font-weight: 600;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        
+        .exercise-text {
+            position: relative;
+            font-weight: 500;
+            font-size: 20px;
+            color: #576a8f;
+            line-height: 2;
+            padding-left: 120px;
+        }
+        .dropzone {
+  display: inline-block;
+  min-width: 100px;
+  min-height: 30px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  vertical-align: middle;
+  padding: 2px 6px;
+  text-align: center;
+}
+
+.dropzone.correct {
+  background-color: #d4edda; /* Зелений */
+  border-color: #28a745;
+}
+
+.dropzone.incorrect {
+  background-color: #f8d7da; /* Червоний */
+  border-color: #7e7273;
+}
+        .drag-words {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .drag-word {
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 5px 15px;
+            font-weight: 500;
+            font-size: 18px;
+            color: #576a8f;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .complete-btn {
+            background-color: #ff8b00;
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-weight: 600;
+            font-size: 22px;
+            color: #011844;
+            border: none;
+            cursor: pointer;
+            margin: 50px 0 100px 0;
+        }
+        
+    .reset-btn {
+        margin-top: 20px;
+        padding: 8px 16px;
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .reset-btn:hover {
+        background-color: #e0e0e0;
+    }
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .sidebar {
+                order: 2;
+                flex: 0 0 auto;
+                width: 100%;
+            }
+            
+            .content {
+                order: 1;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .exercise-text {
+                padding-left: 0;
+            }
+            
+            .drag-words {
+                justify-content: center;
+            }
+            .header{
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="main.html" class="back-link">
+                <img src="img/arrow-back.svg" alt="Back" width="12">
+                повернутися
+            </a>
+            <a href="main.html" class="logo">
+                <img src="img/vector-1.svg" alt="ROBUST" width="40">
+                ROBUST
+            </a>
+        </header>
+        
+        <main class="main-content">
+            <aside class="sidebar">
+                <h2 class="sidebar-title">Полосна операція — перший словник</h2>
+                <ul class="menu">
+                    <li class="menu-item active">1 lesson</li>
+                    <li class="menu-item inactive">2 lesson</li>
+                    <li class="menu-item inactive"><a href="course-main-result.html" style="color: #576a8f; ">Test</a></li>
+                    <li class="menu-item inactive">3 lesson</li>
+                    <li class="menu-item disabled">4 lesson</li>
+                    <li class="menu-item disabled">5 lesson</li>
+                    <li class="menu-item disabled">6 lesson</li>
+                    <li class="menu-item disabled">Test</li>
+                    <li class="menu-item disabled">7 lesson</li>
+                    <li class="menu-item disabled">8 lesson</li>
+                    <li class="menu-item disabled">9 lesson</li>
+                    <li class="menu-item disabled">Final Test</li>
+                </ul>
+            </aside>
+            
+            <div class="content">
+                <iframe width="100%" height="506" src="https://www.youtube.com/embed/JccEkdxIMKg?si=03FACIoeD4McFnJf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                
+                <h1 class="section-title">Матеріали та вправи</h1>
+                
+                <h2 class="lesson-title">1. Basic Medical Verbs – Imperative Form</h2>
+                
+                <p class="text">
+                    В англійській мові, щоб дати інструкцію чи наказ, використовують інфінітив без частки to — це наказовий спосіб (Imperative)
+                </p>
+                
+                <div class="example">
+                    <strong>Наприклад:</strong><br>
+                    Take a deep breath.<br>
+                    Open your mouth.<br>
+                    Lie down on the bed.
+                </div>
+                
+                <div class="exercise">
+                    <h3 class="exercise-title">2. Заповніть пропуски, використовуючи дієслова в наказовій формі</h3>
+                    
+                    <div class="drag-words">
+                        <div class="drag-word">Open</div>
+                        <div class="drag-word">Take</div>
+                        <div class="drag-word">Breathe</div>
+                        <div class="drag-word">Sit</div>
+                        <div class="drag-word">Look</div>
+                    </div>
+                    
+                    <p class="exercise-text">
+                        <span class="dropzone" data-answer="Open"></span> your eyes.<br>
+                        <span class="dropzone" data-answer="Take"></span> a deep breath.<br>
+                        <span class="dropzone" data-answer="Breathe"></span> down slowly.<br>
+                        <span class="dropzone" data-answer="Look"></span> at the monitor.<br>
+                        <span class="dropzone" data-answer="Open"></span> your mouth wide.
+                      </p>
+                      
+    <button class="reset-btn">Скинути</button>
+
+                </div>
+                <br>
+                <a href="course-main-result.html" class="complete-btn">Завершити урок</a>
+            <br>
+            </div>
+        </main>
+    </div>
+</body>
+<script>
+    const words = document.querySelectorAll('.drag-word');
+    const dropzones = document.querySelectorAll('.dropzone');
+    const resetBtn = document.querySelector('.reset-btn');
+    const originalWords = Array.from(words).map(word => word.textContent);
+
+    words.forEach(word => {
+        word.setAttribute('draggable', 'true');
+        word.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', word.textContent);
+        });
+    });
+
+    dropzones.forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const draggedText = e.dataTransfer.getData('text/plain');
+            
+            if (zone.dataset.currentWord) {
+                returnWordToPool(zone.dataset.currentWord);
+            }
+            
+            zone.textContent = draggedText;
+            zone.dataset.currentWord = draggedText;
+            zone.classList.remove('correct', 'incorrect');
+            
+            if (draggedText === zone.dataset.answer) {
+                zone.classList.add('correct');
+            } else {
+                zone.classList.add('incorrect');
+            }
+            
+            removeWordFromPool(draggedText);
+        });
+    });
+
+    function removeWordFromPool(wordText) {
+        words.forEach(word => {
+            if (word.textContent === wordText && !word.classList.contains('used')) {
+                word.classList.add('used');
+                word.style.display = 'none';
+            }
+        });
+    }
+
+    function returnWordToPool(wordText) {
+        words.forEach(word => {
+            if (word.textContent === wordText) {
+                word.classList.remove('used');
+                word.style.display = 'inline-block';
+            }
+        });
+    }
+
+    resetBtn.addEventListener('click', () => {
+        dropzones.forEach(zone => {
+            if (zone.dataset.currentWord) {
+                returnWordToPool(zone.dataset.currentWord);
+                delete zone.dataset.currentWord;
+            }
+            zone.textContent = '';
+            zone.classList.remove('correct', 'incorrect');
+        });
+        
+        words.forEach((word, index) => {
+            word.textContent = originalWords[index];
+            word.classList.remove('used');
+            word.style.display = 'inline-block';
+        });
+    });
+</script>
+
+  
+</html>
